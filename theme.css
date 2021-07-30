@@ -14,6 +14,9 @@ body h2 {
     font-weight: unset;
 }
 
+a { color: rgb(34,34,34); }
+a:hover, a:active { color: #999; }
+
 #the_page {
     height: 100%;
 }
@@ -141,7 +144,7 @@ div[class^="pointer"]::before {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    bottom: 5px; /* adjust height */
+    bottom: 3px; /* adjust height */
     transition: all 100ms ease;
 }
 
@@ -150,7 +153,7 @@ div[class^="pointer"]::before {
     cursor: pointer;
 }
 
-#menubar dt img.translate { transform: translateY(-7px); }
+#menubar dt img.translate { transform: translateY(-8px); }
 
 #menubar dt img { transition: all 100ms ease; }
 
@@ -160,7 +163,7 @@ div[class^="pointer"]::before {
 
 #menubar dt:hover > a span, #menubar dt a.selected span { 
     width: auto; 
-    font-size: 14px !important;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -262,7 +265,26 @@ dl#qsearch-bar {
     margin: 0 1em;
 }
 
+#mbIdentification dt {
+    margin: 0;
+    width: auto;
+    max-width: 65px;
+}
+
 a#link-mbIdentification { flex-direction: row !important; }
+
+#mbIdentification dt a span {
+    display: block;
+    position: relative;
+    bottom: 0;
+    width: auto;
+    line-height: normal;
+}
+
+#mbIdentification dt:hover > a span, #mbIdentification dt a.selected span { 
+    font-size: 12px;
+    font-weight: unset; 
+}
 
 .nc-icon-user { margin-right: 1px; }
 

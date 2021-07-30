@@ -247,7 +247,7 @@
     <dt id="tab-{$id}"><a id="link-{$id}">
         {if $U_LOGOUT}
             <img class="nc-icon-user" src="{$icons_url}svg/core/actions/user?color=ffffff" alt="user">
-            {$USERNAME}
+            <span>{$USERNAME}</span>
         {else}
             {'Login'|@translate}
         {/if}
