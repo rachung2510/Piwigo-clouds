@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{$lang_info.code}" dir="{$lang_info.direction}">
 <head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 {if $SHOW_MOBILE_APP_BANNER}
 <meta name="apple-itunes-app" content="app-id=472225196">
 {/if}
