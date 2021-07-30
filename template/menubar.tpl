@@ -80,22 +80,18 @@
 
 {* ======== mbLinks ======== *}
             {if $id=="mbLinks"}
-{if count($block->data)==1 }
-    <dt id="tab-{$id}"><a id="link-{$id}" href="{$block->data[0].URL}">{$block->data[0].LABEL}</a></dt>
-{else}
-    <dt id="tab-{$id}"><a id="link-{$id}">
-        <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/places/link?color=fff">
-        <span class="mb-label">{'Links'|@translate}</span>
-    </a></dt>
-    <div class="pointer-{$id}"></div>
-    <dd id="dropdown-{$id}">
-        {strip}{foreach from=$block->data item=link}
-        <a href="{$link.URL}" class="external"{if isset($link.new_window)} onclick="window.open(this.href, '{$link.new_window.NAME}','{$link.new_window.FEATURES}'); return false;"{/if}>
-        {$link.LABEL}
-        </a>
-        {/foreach}{/strip}
-    </dd>
-{/if}
+<dt id="tab-{$id}"><a id="link-{$id}">
+    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/public?color=fff">
+    <span class="mb-label">{'Links'|@translate}</span>
+</a></dt>
+<div class="pointer-{$id}"></div>
+<dd id="dropdown-{$id}">
+    {strip}{foreach from=$block->data item=link}
+    <a href="{$link.URL}" class="external"{if isset($link.new_window)} onclick="window.open(this.href, '{$link.new_window.NAME}','{$link.new_window.FEATURES}'); return false;"{/if}>
+    {$link.LABEL}
+    </a>
+    {/foreach}{/strip}
+</dd>
 
 {* ======== mbCategories ======== *}
             {elseif $id=="mbCategories"}
@@ -179,7 +175,7 @@
 {* ======== mbRelatedCategories ======== *}
             {elseif $id=="mbRelatedCategories"}
 <dt id="tab-{$id}"><a id="link-{$id}">
-    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}svg/core/actions/toggle-pictures?color=fff">
+    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}svg/core/actions/projects?color=fff">
     <span class="mb-label">{'Related albums'|@translate}</span>
 </a></dt>
 <div class="pointer-{$id}"></div>

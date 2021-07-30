@@ -303,3 +303,81 @@ a#link-mbIdentification { flex-direction: row !important; }
 #copyright a {
     color: #666;
 }
+
+/* icons */
+.pwg-icon { 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-indent: 0; 
+    background: none;
+}
+
+
+[class^="pwg-icon-"]:before, [class*=" pwg-icon-"]:before {
+    font-family: "FontAwesome";
+    color: #333;
+    font-size: 1.2em;
+}
+
+.pwg-icon:hover:before {
+    color: #999;
+}
+/*
+-webkit-text-fill-color: transparent;
+-webkit-text-stroke: 1px;
+*/
+
+.pwg-icon-home::before { content: "\f015"; }
+.pwg-icon-camera::before { content: "\f083"; }
+.pwg-icon-save::before { content: "\f0c7"; }
+.pwg-icon-cloud::before { content: "\f0c2"; }
+.pwg-icon-letters::before { content: "\f15d"; }
+.pwg-icon-calendar::before { content: "\f073"; }
+.pwg-icon-camera-calendar::before { content: "\f271"; }
+.pwg-icon-help::before { content: "\f059" }
+
+.pwg-icon-arrow-n::before { content: "\f148"; font-size: 1.5em; }
+.pwg-icon-arrow-e::before { content: "\f061"; }
+.pwg-icon-arrow-w::before { content: "\f060"; }
+.pwg-icon-arrowstop-e::before { content: "\f051"; }
+.pwg-icon-arrowstop-w::before { content: "\f048"; }
+
+.pwg-icon-close::before { content: "\f00d"; }
+.pwg-icon-category-edit::before { content: "\f0ad"; }
+.pwg-icon-sort::before { content: "\f161"; }
+.pwg-icon-sizes::before { content: "\f065"; }
+.pwg-icon-menu::before { content: "\f0c9"; }
+.pwg-icon-category-view-normal::before { content: "\f148"; }
+.pwg-icon-category-view-flat::before { content: "\f0e8"; }
+/*.pwg-icon-category-view-flat::before { content: "\f009"; } */
+
+/* .pwg-icon-caddie::before { content: "\f07a"; } */
+.pwg-icon-caddie::before { content: "\f291"; }
+.pwg-icon-caddie-add::before { content: "\f291"; }
+.pwg-icon-caddie-del::before { content: "\f291\2d"; }
+.pwg-icon-favorite::before { content: "\f005"; }
+.pwg-icon-favorite-add::before { content: "\f08a"; }
+.pwg-icon-favorite-del::before { content: "\f004"; }
+.pwg-icon-filter::before { content: "\f0b0"; }
+.pwg-icon-filter-del::before { content: "\f0b0\2d"; }
+
+.pwg-icon-camera-info::before { content: "\f129"; }
+.pwg-icon-representative::before { content: "\f03e"; }
+.pwg-icon-edit::before { content: "\f040"; }
+.pwg-icon-register::before { content: "\f234"; }
+.pwg-icon-lost-password::before { content: "\f06a"; }
+
+.pwg-icon-slideshow::before { content: "\f26c"; }
+.pwg-icon-play::before { content: "\f04b"; }
+.pwg-icon-pause::before { content: "\f04c"; }
+.pwg-icon-stop::before { content: "\f04d"; }
+.pwg-icon-clock-plus::before { content: "\f04e"; }
+.pwg-icon-clock-minus::before { content: "\f04a"; }
+.pwg-icon-repeat-play::before { content: "\f01e"; }
+.pwg-icon-repeat-stop::before { content: "\f01e\2a2f"; }
+/* .pwg-icon-repeat-stop::before { content: "\f00d"; } */
+
+.pwg-icon-map::before { content: "\f279"; }
+.pwg-icon-globe::before { content: "\f0ac"; }
+
