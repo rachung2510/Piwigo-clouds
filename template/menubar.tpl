@@ -54,6 +54,9 @@
     }
 
     function toggleLabels(action, selected) {
+        if ($(window).width() <= 480) {
+            return;
+        }
         if (action == 1) {
             $(".nc-icon-mb").each(function() { $(this).removeClass("translate").addClass("translate"); });
             $(".mb-label").each(function() { $(this).show(); });
@@ -70,6 +73,9 @@
 <div id="menubar">
     <div id="galleryTitle">
         <h2><a href="{$gallery_url}">{$gallery_title}</a></h2>
+        <img class="nc-icon-menu" src="{$icons_url}svg/core/actions/menu?color=fff">
+    </div>
+    <div id="navmenu">
     </div>
     {if !empty($blocks)}
     <div id="menu">
@@ -96,12 +102,14 @@
 {* ======== mbCategories ======== *}
             {elseif $id=="mbCategories"}
 <dt id="tab-{$id}">
+{*
     {if isset($U_START_FILTER)}
     <a href="{$U_START_FILTER}" class="pwg-state-default pwg-button menubarFilter" title="{'display only recently posted photos'|@translate}" rel="nofollow"><span class="pwg-icon pwg-icon-filter"> </span></a>
     {/if}
     {if isset($U_STOP_FILTER)}
     <a href="{$U_STOP_FILTER}" class="pwg-state-default pwg-button menubarFilter" title="{'return to the display of all photos'|@translate}"><span class="pwg-icon pwg-icon-filter-del"> </span></a>
     {/if}
+*}
     <a id="link-{$id}">
         <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}apps/deck/img/deck.svg?v=a8813991">
         <span class="mb-label">{'Albums'|@translate}</span>
@@ -166,7 +174,9 @@
         {if isset($blocks.mbMenu)}
         <hr>
         {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
-        <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}{if isset($link.COUNTER)} ({$link.COUNTER}){/if}</a>
+            {if $link.NAME != "Edit photos"}
+                <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}{if isset($link.COUNTER)} ({$link.COUNTER}){/if}</a>
+            {/if}
         {/if}{/foreach}
         {/if}
     {/strip}
