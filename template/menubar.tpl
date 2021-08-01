@@ -12,7 +12,8 @@
                     $(".pointer-"+id).show();
                     $("#link-"+id).removeClass("selected").addClass("selected");
                     selected = true;
-                    if (id != 'mbIdentification') toggleLabels(1);
+                    if (id != 'mbIdentification') 
+                        toggleLabels(1);
                 } else {
                     $(".pointer-"+id).hide();
                     $("#dropdown-"+id).hide();
@@ -32,11 +33,28 @@
 
     $("#menubar-tabs").hover( function(){toggleLabels(1,true)}, function(){toggleLabels(0,selected)} );
 
-    $(document).click( function() {
+    $(document).click( function(e) {
         hideAllDropdown();
         selected = false;
         toggleLabels(0, false);
     } );
+
+    $(".nc-icon-menu").click( function(e) {
+        e.stopImmediatePropagation();
+        hideAllDropdown();
+        toggleMenu();
+    });
+
+
+    $(window).resize(function() {
+        $("#menu").removeClass("show");
+        if ($(window).width() > 680) {
+            $("#menu").css('transform','unset');
+        } else {
+            $("#menubar").css('max-height', '50px');
+            $("#menu").css('transform', 'translateY(-999px)');
+        }
+    });
 
 
     function hideAllDropdown(except=null) {
@@ -54,15 +72,27 @@
     }
 
     function toggleLabels(action, selected) {
-        if ($(window).width() <= 480) {
+        if ($(window).width() <= 680) 
             return;
-        }
         if (action == 1) {
             $(".nc-icon-mb").each(function() { $(this).removeClass("translate").addClass("translate"); });
             $(".mb-label").each(function() { $(this).show(); });
         } else if (!selected) {
             $(".nc-icon-mb").each(function() { $(this).removeClass("translate"); });
             $(".mb-label").each(function() { $(this).hide(); });
+        }
+    }
+
+    function toggleMenu(action) {
+        if ($(window).width() > 680) return;
+        if ($("#menu").hasClass("show")) {
+            $("#menubar").css('max-height', '50px');
+            $("#menu").css('transform', 'translateY(-999px)');
+            $("#menu").removeClass("show");
+        } else {
+            $("#menu").css('transform', 'translateY(0)');
+            $("#menubar").css('max-height', '999px');
+            $("#menu").addClass("show");
         }
     }
 
@@ -168,13 +198,13 @@
 <div class="pointer-{$id}"></div>
 <dd id="dropdown-{$id}">
     {strip}
-        {foreach from=$block->data item=link}{if $link.NAME!='Your favorites'}
+        {foreach from=$block->data item=link}{if $link.NAME != l10n('Your favorites')}
         <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}</a>
         {/if}{/foreach}
         {if isset($blocks.mbMenu)}
         <hr>
         {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
-            {if $link.NAME != "Edit photos"}
+            {if $link.NAME != l10n('Edit photos')}
                 <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}{if isset($link.COUNTER)} ({$link.COUNTER}){/if}</a>
             {/if}
         {/if}{/foreach}
@@ -190,30 +220,24 @@
 </a></dt>
 <div class="pointer-{$id}"></div>
 <dd id="dropdown-{$id}">
-{assign var='ref_level' value=0}
-{foreach from=$block->data.MENU_CATEGORIES item=cat}
-  {if $cat.LEVEL > $ref_level}
-  <ul>
-  {else}
-    </li>
-    {'</ul></li>'|@str_repeat:($ref_level-$cat.LEVEL)}
-  {/if}
+    <ul>
+    {foreach from=$block->data.MENU_CATEGORIES item=cat}
     <li>
-  {if isset($cat.url)}
-      <a href="{$cat.url}" title="{$cat.TITLE}">{$cat.name}
-  {else}
-      <a>{$cat.name}
-  {/if}
-  {if $cat.count_images > 0}
-      <span class="badge" title="{$cat.count_images|translate_dec:'%d photo':'%d photos'}">{$cat.count_images}</span>
-  {/if}
-  {if $cat.count_categories > 0}
-      <span class="badge badgeCategories" title="{'sub-albums'|translate}">{$cat.count_categories}</span>
-  {/if}
-      </a>
-  {assign var='ref_level' value=$cat.LEVEL}
-{/foreach}
-{'</li></ul>'|@str_repeat:$ref_level}
+        {if isset($cat.url)}
+        <a href="{$cat.url}" title="{$cat.TITLE}" style="padding-left:calc(20px + 1em * {$cat.LEVEL-1})">{parse_lang desc=$cat.name}
+        {else}
+        <a style="padding-left:calc(20px + 1em * {$cat.LEVEL-1})">{parse_lang desc=$cat.name}
+        {/if}
+            {if $cat.count_images > 0}
+            <span class="badge" title="{$cat.count_images|translate_dec:'%d photo':'%d photos'}">{$cat.count_images}</span>
+            {/if}
+            {if $cat.count_categories > 0}
+            <span class="badge badgeCategories" title="{'sub-albums'|translate}">{$cat.count_categories}</span>
+            {/if}
+        </a>
+    </li>
+    {/foreach}
+    <ul>
 </dd>
 
 {* ======== END mb ======== *}
@@ -230,7 +254,7 @@
 </a></dt></dl>
 {/if}
 {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
-{if $link.NAME == 'Edit photos'}
+{if $link.NAME == l10n('Edit photos')}
 <dl><dt><a href="{$link.URL}" title="{$link.TITLE}">
     <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}svg/core/actions/rename?color=fff">
     <span class="mb-label">{$link.NAME}</span>
