@@ -7,20 +7,32 @@
             $("#tab-"+id).click(function(e){
                 e.stopPropagation();
                 hideAllDropdown(except=id);
-                if ($("#dropdown-"+id).is(":hidden")) {
+                if ($("#dropdown-"+id).is(":hidden")) { // show dropdown
                     $("#dropdown-"+id).show();
                     $(".pointer-"+id).show();
                     $("#link-"+id).removeClass("selected").addClass("selected");
                     selected = true;
+
+                    // disabled show/hide labels for identification
                     if (id != 'mbIdentification') 
                         toggleLabels(1);
-                } else {
+
+                    // expand menu downwards
+                    $("#menu").css('max-height', '999px');
+                    $("#menu").css('justify-content', 'flex-start');
+
+                } else { // hide dropdown
                     $(".pointer-"+id).hide();
                     $("#dropdown-"+id).hide();
                     $("#link-"+id).removeClass("selected");
                     selected = false;
+
+                    // shrink menu; reset menu to expand end first
+                    $("#menu").css('max-height', '350px');
+                    $("#menu").css('justify-content', 'flex-end');
                 }
 
+                // wrap text only when text exceeds certain length
                 $("#dropdown-"+id).find("a").each(function() {
                     if ($(this).text().length > 60) { // roughly 60 chars
                         $(this).css('white-space', 'normal');
@@ -31,14 +43,17 @@
         });
     }
 
+    // move img up and show labels on hover
     $("#menubar-tabs").hover( function(){toggleLabels(1,true)}, function(){toggleLabels(0,selected)} );
 
+    // reset dropdown and label visibility when user clicks anywhere else
     $(document).click( function(e) {
         hideAllDropdown();
-        selected = false;
-        toggleLabels(0, false);
+        selected = false; // reset tabs to none selected
+        toggleLabels(0, false); // reset all labels to hidden state
     } );
 
+    // mobile menu slider
     $(".nc-icon-menu").click( function(e) {
         e.stopImmediatePropagation();
         hideAllDropdown();
@@ -47,16 +62,13 @@
 
 
     $(window).resize(function() {
-        $("#menu").removeClass("show");
-        if ($(window).width() > 680) {
-            $("#menu").css('transform','unset');
-        } else {
-            $("#menubar").css('max-height', '50px');
-            $("#menu").css('transform', 'translateY(-999px)');
-        }
+        $("#menu").removeClass("show"); // disable hide labels on resize
     });
 
-
+    /**
+     * Hide all dropdowns
+     * @param except Exclude dropdown from hiding
+     */
     function hideAllDropdown(except=null) {
         if (blocks !== null) {
             jQuery.each(blocks, function(id, block) {
@@ -69,8 +81,21 @@
                 }
             });
         }
+
+        // reset max-height to default expanded state
+        // reset menu to expand end first
+        // only if menu was already expanded (max-height already 350px)
+        if ($("#menu").css('max-height') != '0px') {
+            $("#menu").css('max-height', '350px');
+            $("#menu").css('justify-content', 'flex-end'); // if dropdown showing on click
+        }
     }
 
+    /**
+     * Toggle label visibility and icon translation
+     * @param action 1=show, 0=hide
+     * @param selected true=one menu item selected, false=no menu item selected
+     */
     function toggleLabels(action, selected) {
         if ($(window).width() <= 680) 
             return;
@@ -83,15 +108,17 @@
         }
     }
 
+    /**
+     * Toggle mobile screen menu slider
+     * @param action 1=show, 0=hide
+     */
     function toggleMenu(action) {
         if ($(window).width() > 680) return;
         if ($("#menu").hasClass("show")) {
-            $("#menubar").css('max-height', '50px');
-            $("#menu").css('transform', 'translateY(-999px)');
+            $("#menu").css('max-height', '0px');
             $("#menu").removeClass("show");
         } else {
-            $("#menu").css('transform', 'translateY(0)');
-            $("#menubar").css('max-height', '999px');
+            $("#menu").css('max-height', '350px');
             $("#menu").addClass("show");
         }
     }

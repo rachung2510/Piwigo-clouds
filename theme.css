@@ -60,7 +60,8 @@ a:hover {
 
 img[class^='nc-icon'] { 
     width: 20px; 
-    vertical-align: middle !important;
+    cursor: pointer;
+/*    vertical-align: middle !important; */
 }
 
 /* page banner */
@@ -105,6 +106,8 @@ div#menu { margin-left: auto; } /* flex align right */
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#galleryTitle h2 a:hover, #galleryTitle h2 a:focus { opacity: 0.6; }
 
 #menu, #menubar-tabs { 
     display: inline-flex; 
@@ -461,12 +464,14 @@ body {
 
 #menubar {
     background: none;
+    display: block;
     width: 100%;
     max-width: unset;
-    max-height: 50px;
-    flex-direction: column;
+    height: auto;
+/*    max-height: 50px; */
+/*    flex-direction: column; */
     padding: 0;
-    align-items: stretch;
+/*    align-items: stretch; */
 /*    transition: max-height 300ms ease; */
 }
 
@@ -477,8 +482,10 @@ body {
 
 #galleryTitle {
     background: #355199;
-/*    width: calc(100% - 32px); */
+    display: flex;
+    width: calc(100% - 32px);
     max-width: unset;
+    height: 50px;
     padding: 0 16px;
     z-index: 1;
 }
@@ -488,8 +495,11 @@ body {
 #menu {
     width: 100%;
     background: #4264bd;
-    transform: translateY(-999px);
-/*    transition: transform 300ms ease; */
+/*    transform: translateY(-999px); */
+    transition: max-height 300ms ease-in-out;
+    max-height: 0px;
+    overflow-y: hidden;
+    justify-content: flex-end;
 }
 
 #menubar dl, #menubar dt {
@@ -522,6 +532,7 @@ body {
     position: static;
     text-align: left;
     width: auto;
+    transition: unset;
 }
 
 /* #menubar dt a.selected, #menubar dt a.selected span { opacity: 0.6; } */
@@ -531,7 +542,7 @@ body {
     font-weight: unset;
 }
 
-#menubar dt a.selected, #menubar dt a.selected span {
+#menubar dt a.selected, #menubar dt a.selected span, #menubar dt a:focus, #menubar dt a:focus > span {
     opacity: 1;
     font-size: 14px;
     font-weight: bold;
