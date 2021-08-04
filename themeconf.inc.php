@@ -37,6 +37,7 @@ function clouds_menubar() {
     'gallery_url' => PHPWG_ROOT_PATH,
     'icons_url' => $icons_url,
     'page_section' => isset($page['section']) ? $page['section'] : null,
+    'is_homepage' => isset($page['is_homepage']),
   ));
   $template->pparse('menubar');
 }

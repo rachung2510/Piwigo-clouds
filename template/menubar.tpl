@@ -3,7 +3,7 @@
     var blocks = {/literal}{$blocks|@json_encode}{literal};
 
     if (blocks !== null) {
-        jQuery.each(blocks, function(id, block) {
+            jQuery.each(blocks, function(id, block) {
             $("#tab-"+id).click(function(e){
                 e.stopPropagation();
                 hideAllDropdown(except=id);
@@ -22,7 +22,8 @@
                     $("#menu").css('justify-content', 'flex-start');
 
                 } else { // hide dropdown
-                    $(".pointer-"+id).hide();
+                    if (!($(".pointer-"+id).hasClass("is-page")))
+                        $(".pointer-"+id).hide();
                     $("#dropdown-"+id).hide();
                     $("#link-"+id).removeClass("selected");
                     selected = false;
@@ -62,7 +63,14 @@
 
 
     $(window).resize(function() {
-        $("#menu").removeClass("show"); // disable hide labels on resize
+        $("#menu").removeClass("show"); // reset menu to default hidden
+        if ($(window).width() > 680) {
+            $(".mb-label").each(function() { $(this).hide(); }); // hide labels
+            $("#menu").css('max-height', '0px');
+        } else {
+            $(".mb-label").each(function() { $(this).show(); }); // show labels
+            $(".is-page").removeClass("is-page");
+        }
     });
 
     /**
@@ -74,7 +82,8 @@
             jQuery.each(blocks, function(id, block) {
                 if (id != except) {
                     if ($("#dropdown-"+id).is(":visible")) {
-                        $(".pointer-"+id).hide();
+                        if (!($(".pointer-"+id).hasClass("is-page")))
+                            $(".pointer-"+id).hide();
                         $("#dropdown-"+id).hide();
                         $("#link-"+id).removeClass("selected");
                     }
@@ -97,14 +106,18 @@
      * @param selected true=one menu item selected, false=no menu item selected
      */
     function toggleLabels(action, selected) {
+        // ignore for mobile screens
         if ($(window).width() <= 680) 
             return;
-        if (action == 1) {
+        
+        if (action == 1) { // hover in
             $(".nc-icon-mb").each(function() { $(this).removeClass("translate").addClass("translate"); });
             $(".mb-label").each(function() { $(this).show(); });
-        } else if (!selected) {
+            $(".is-page").removeClass("hover").addClass("hover");
+        } else if (!selected) { // hover out
             $(".nc-icon-mb").each(function() { $(this).removeClass("translate"); });
             $(".mb-label").each(function() { $(this).hide(); });
+            $(".is-page").removeClass("hover");
         }
     }
 
@@ -132,11 +145,21 @@
         <h2><a href="{$gallery_url}">{$gallery_title}</a></h2>
         <img class="nc-icon-menu" src="{$icons_url}svg/core/actions/menu?color=fff">
     </div>
-    <div id="navmenu">
-    </div>
     {if !empty($blocks)}
     <div id="menu">
     <div id="menubar-tabs">
+
+{* ======== mbHome ======== *}
+        <dl id="mbHome">
+<dt><a href="{$gallery_url}">
+    <img class="nc-icon-mbHome nc-icon-mb" src="{$icons_url}svg/core/places/home?color=fff">
+    <span class="mb-label">{'Home'|@translate}</span>
+</a></dt>
+<div class="pointer{if $is_homepage} is-page{/if}"></div>
+        </dl>
+
+{* ================ *}
+
         {foreach from=$blocks key=id item=block}
         {if $id!="mbMenu" and $id!="mbIdentification"}
         <dl id="{$id}">
@@ -172,9 +195,8 @@
         <span class="mb-label">{'Albums'|@translate}</span>
     </a>
 </dt>
-<div class="pointer-{$id}"></div>
+<div class="pointer-{$id}{if $page_section=='categories' && !$is_homepage} is-page{/if}"></div>
 <dd id="dropdown-{$id}">
-{assign var='ref_level' value=0}
 <ul>
 {foreach from=$block->data.MENU_CATEGORIES item=cat}
     <li {if $cat.SELECTED}class="selected"{/if}">
@@ -187,12 +209,11 @@
       <img class="nc-icon-recent" title="{$cat.icon_ts.TITLE}" src="{$icons_url}svg/files/recent?color=808080" alt="(!)">
       {/if}
       </a>
-  {assign var='ref_level' value=$cat.LEVEL}
 </li>
 {/foreach}
 </ul>
     <hr>
-    <p class="totalImages">{$block->data.NB_PICTURE|@translate_dec:'%d photo':'%d photos'}</p>
+    <a href="{$gallery_url}><p class="totalImages">{$block->data.NB_PICTURE|@translate_dec:'%d photo':'%d photos'}</p></a>
 </dd>
 
 {* ======== mbTags ======== *}
@@ -201,7 +222,7 @@
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff">
     <span class="mb-label">{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</span>
 </a></dt>
-<div class="pointer-{$id}"></div>
+<div class="pointer-{$id}{if $page_section=='tags'} is-page{/if}"></div>
 <dd id="dropdown-{$id}">
     <div id="menuTagCloud">
         {foreach from=$block->data item=tag}{strip}
@@ -275,17 +296,23 @@
 
 {* ======== Horizontal menu specificities ======== *}
 {if isset($blocks.mbSpecials->data.favorites)}
-<dl><dt><a href="{$blocks.mbSpecials->data.favorites.URL}" title="{$blocks.mbSpecials->data.favorites.TITLE}">
-    <img class="nc-icon-favorites nc-icon-mb" src="{$icons_url}svg/core/actions/star-dark?color=fff">
-    <span class="mb-label">{'Favorites'|@translate}</span>
-</a></dt></dl>
+<dl class="horizontal-menu">
+    <dt><a href="{$blocks.mbSpecials->data.favorites.URL}" title="{$blocks.mbSpecials->data.favorites.TITLE}">
+        <img class="nc-icon-favorites nc-icon-mb" src="{$icons_url}svg/core/actions/star-dark?color=fff">
+        <span class="mb-label">{'Favorites'|@translate}</span>
+    </a></dt>
+    <div class="pointer{if $page_section=='favorites'} is-page{/if}"></div>
+</dl>
 {/if}
 {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
 {if $link.NAME == l10n('Edit photos')}
-<dl><dt><a href="{$link.URL}" title="{$link.TITLE}">
-    <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}svg/core/actions/rename?color=fff">
-    <span class="mb-label">{$link.NAME}</span>
-</a></dt></dl>
+<dl class="horizontal-menu">
+    <dt><a href="{$link.URL}" title="{$link.TITLE}">
+        <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}svg/core/actions/rename?color=fff">
+        <span class="mb-label">{$link.NAME}</span>
+    </a></dt>   
+    <div class="pointer{if $page_section=='edit_photos'} is-page{/if}"></div>
+</dl>
 {/if}
 {/if}{/foreach}
 
