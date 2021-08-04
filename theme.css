@@ -59,6 +59,15 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus {
 
 INPUT::placeholder { color: #999; }
 
+SELECT {
+    background-color: white;
+    color: #222;
+    border: 1px solid #dbdbdb;
+    border-radius: 3px;
+    padding: 6px;
+    font-size: 100%;
+}
+
 a:hover {
     border: none;
     cursor: pointer;
@@ -519,6 +528,84 @@ ul.thumbnailCategories {
 }
 
 .thumbWrap .pwg-icon-recent::before { color: #333 !important; }
+
+/* tags */
+#fullTagCloud { text-align: center; }
+
+/* customize */
+#profile fieldset {
+    margin: 0 0 1em;
+    padding: 0;
+    border: none;
+}
+
+#profile legend {
+    width: calc(100% - 2em);
+    padding: 1em;
+    background-color: #dbdbdb;
+    font-style: unset;
+}
+
+.properties ul {
+    border: 1px solid #dbdbdb;
+    border-top: none;
+    padding: 1em
+}
+
+.properties li { 
+    text-align: left;
+} 
+
+.properties span.property {
+    width: 240px;
+    text-align: left;
+}
+
+.properties li input[type=text], .properties li input[type=password] { width: calc(240px - 14px); }
+.properties li input[name=nb_image_page] { width: calc(100px - 14px); }
+.properties li select { width: 240px; }
+
+.properties li label { margin-right: 1em; }
+
+.bottomButtons {
+    text-align: left;
+    padding: 0 1em;
+    margin: 0 0 40px;
+}
+
+.bottomButtons input { 
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: pointer; 
+}
+
+.bottomButtons input[name=validate]:hover, .bottomButtons input[name=validate]:active { 
+    background-color: #355199;
+    border: 1px solid #355199;
+    color: white;
+}
+
+.bottomButtons input[name*="reset"]:hover {
+    border: 1px solid #355199;
+}
+
+.bottomButtons input[name*="reset"]:active { 
+    border: 1px solid #dbdbdb;
+    background-color: #dbdbdb; 
+}
+
+@media screen and (max-width: 580px) {
+    .properties li, .properties span.property { width: 100%; }
+    .properties li input[type=text], .properties li input[type=password] { width: calc(100% - 14px); }
+    .properties li select { width: 100%; }
+}
+
+@media screen and (max-width: 380px) {
+    .properties li, .properties span.property { width: 100%; }
+    .bottomButtons { text-align: center; padding: 0; }
+    .bottomButtons input { white-space: break-spaces; }
+    .bottomButtons input[name=validate], .bottomButtons input[name=reset] { margin-bottom: 0.5em; }
+}
 
 /* footer */
 #copyright {
