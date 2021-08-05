@@ -155,7 +155,7 @@
     <img class="nc-icon-mbHome nc-icon-mb" src="{$icons_url}svg/core/places/home?color=fff">
     <span class="mb-label">{'Home'|@translate}</span>
 </a></dt>
-<div class="pointer{if $is_homepage} is-page{/if}"></div>
+<div class="pointer{if $is_homepage && $page_section=='categories'} is-page{/if}"></div>
         </dl>
 
 {* ================ *}
@@ -213,7 +213,7 @@
 {/foreach}
 </ul>
     <hr>
-    <a href="{$gallery_url}><p class="totalImages">{$block->data.NB_PICTURE|@translate_dec:'%d photo':'%d photos'}</p></a>
+    <p class="totalImages">{$block->data.NB_PICTURE|@translate_dec:'%d photo':'%d photos'}</p>
 </dd>
 
 {* ======== mbTags ======== *}
