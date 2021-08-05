@@ -29,7 +29,7 @@
                     selected = false;
 
                     // shrink menu; reset menu to expand end first
-                    $("#menu").css('max-height', '350px');
+                    $("#menu").css('max-height', '380px');
                     $("#menu").css('justify-content', 'flex-end');
                 }
 
@@ -93,9 +93,9 @@
 
         // reset max-height to default expanded state
         // reset menu to expand end first
-        // only if menu was already expanded (max-height already 350px)
+        // only if menu was already expanded (max-height already 380px)
         if ($("#menu").css('max-height') != '0px') {
-            $("#menu").css('max-height', '350px');
+            $("#menu").css('max-height', '380px');
             $("#menu").css('justify-content', 'flex-end'); // if dropdown showing on click
         }
     }
@@ -131,7 +131,7 @@
             $("#menu").css('max-height', '0px');
             $("#menu").removeClass("show");
         } else {
-            $("#menu").css('max-height', '350px');
+            $("#menu").css('max-height', '380px');
             $("#menu").addClass("show");
         }
     }
