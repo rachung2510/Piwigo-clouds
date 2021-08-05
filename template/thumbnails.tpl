@@ -7,9 +7,9 @@
     width: min(100px, 100%);
     margin: 2px;
 {elseif $derivative_params->type == '2small'}
-    width: min(156px, 100%);
+    width: min(124px, 100%);
 {elseif $derivative_params->type == 'xsmall'}
-    width: min(175px, 100%);
+    width: min(156px, 100%);
 {elseif $derivative_params->type == 'small'}
     width: min(190px, 100%);
 {elseif $derivative_params->type == 'medium'}
