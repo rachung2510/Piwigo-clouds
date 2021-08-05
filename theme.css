@@ -1101,7 +1101,7 @@ div[class^="pointer"] {
     margin-left: 21px; /* 16px padding + 10px half icon width - 5px half pointer width */
 }
 
-.horizontal-menu div[class^="pointer"] { display: none; }
+.horizontal-menu div[class^="pointer"], #mbHome div[class^="pointer"] { display: none; }
 
 div[class^="pointer"]::before { 
     display: inline-block; 
