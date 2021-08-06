@@ -328,14 +328,19 @@
 
 {* ======== Identification ======== *}
 <dl id="mbIdentification">
-    <dt id="tab-{$id}"><a id="link-{$id}">
-        {if $U_LOGOUT}
+    {if $U_LOGOUT}
+    <dt id="tab-{$id}">
+        <a id="link-{$id}">
             <img class="nc-icon-user" src="{$icons_url}svg/core/actions/user?color=ffffff" alt="user">
             <span>{$USERNAME}</span>
-        {else}
-            {'Login'|@translate}
-        {/if}
-    </a></dt>
+        </a>
+    </dt>
+    {else}
+    <dt>
+        <a href="{$U_LOGIN}" rel="nofollow">{'Login'|@translate}</a>
+{*            {'Login'|@translate} *}
+    </dt>
+    {/if}
     <div class="pointer-{$id}"></div>
     <dd id="dropdown-{$id}">
     {strip}
@@ -357,7 +362,8 @@
             {if isset($U_ADMIN)}
             <a href="{$U_ADMIN}" title="{'available for administrators only'|@translate}">{'Administration'|@translate}</a>
             {/if}
-    {/strip}
+    {/strip} 
+{*
     {if isset($U_LOGIN)}
     {strip}
         <form method="post" action="{$U_LOGIN}" id="quickconnect">
@@ -365,7 +371,7 @@
         <legend>{'Quick connect'|@translate}</legend>
         <div>
             <label for="username">{'Username'|@translate}</label><br>
-          <input type="text" name="username" id="username" value="" style="width:99%">
+            <input type="text" name="username" id="username" value="" style="width:99%">
         </div>
 
         <div>
@@ -381,7 +387,7 @@
 
         <div>
             <input type="hidden" name="redirect" value="{$smarty.server.REQUEST_URI|@urlencode}">
-            <input type="submit" name="login" value="{'Submit'|@translate}">
+            <input type="submit" name="login" value="{'Login'|@translate}">
             <span class="categoryActions">
             {if isset($U_REGISTER)}
             <a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
@@ -397,7 +403,28 @@
         </fieldset>
         </form>
     {/strip}
-    {/if} {* if isset($U_LOGIN) *}
+    {/if} // if isset($U_LOGIN)
+    {strip}
+        {if isset($USERNAME)}
+        <p>{'Hello'|@translate} {$USERNAME} !</p>
+        {/if}
+            {if isset($U_REGISTER)}
+            <a href="{$U_REGISTER}" title="{'Create a new account'|@translate}" rel="nofollow">{'Register'|@translate}</a>
+            {/if}
+            {if isset($U_LOGIN)}
+            <a href="{$U_LOGIN}" rel="nofollow">{'Login'|@translate}</a>
+            {/if}
+            {if isset($U_LOGOUT)}
+            <a href="{$U_LOGOUT}">{'Logout'|@translate}</a>
+            {/if}
+            {if isset($U_PROFILE)}
+            <a href="{$U_PROFILE}" title="{'customize the appareance of the gallery'|@translate}">{'Customize'|@translate}</a>
+            {/if}
+            {if isset($U_ADMIN)}
+            <a href="{$U_ADMIN}" title="{'available for administrators only'|@translate}">{'Administration'|@translate}</a>
+            {/if}
+    {/strip}
+*}
     </dd>
 </dl>
 
