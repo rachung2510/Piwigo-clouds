@@ -18,6 +18,7 @@ h2 {
 
 a { color: rgb(34,34,34); }
 a:hover, a:active { color: #999; }
+a:hover > span::before { color: #999; }
 
 #the_page {
     height: 100vh;
@@ -416,10 +417,9 @@ li#languageSwitch {
 .switchBox a:hover { color: #999 !important; }
 .switchBoxTitle { border-bottom: 1px solid #ccc !important}
 
-.switchBox span { 
-    line-height: 2em;
-    margin-right: 0.5em !important;
-}
+.switchBox span { line-height: 2em; }
+
+#languageSwitchBox [class*="langflag-"] { margin-right: 0.5em !important; }
 
 #languageSwitchBox { 
     left: unset !important;
@@ -427,9 +427,22 @@ li#languageSwitch {
     top: 36px !important; 
 }
 
+#calendarViewSwitchBox {
+    left: unset !important;
+    right: 0;
+}
+
 #sortOrderLink.active, #derivativeSwitchLink.active,
 #sortOrderLink.active .pwg-icon::before, #derivativeSwitchLink.active .pwg-icon::before
 { color: #999; }
+
+.content .calendarBar { margin: 0 4px 8px; }
+.calendarTitle { float: left; }
+.calItem {
+    display: inline-block;
+    margin: 0 0 0.5ch;
+    padding: 1px 0.25em;
+}
 
 @media screen and (max-width: 480px) {
     .pwg-icon-menu { display: inline-flex !important; }
@@ -485,11 +498,75 @@ li#languageSwitch {
         width: unset !important;
     }
 
-    .switchBox, #languageSwitchBox {
+    .switchBox:not(#calendarViewSwitchBox), #languageSwitchBox {
         position: static !important;
     }
     .switchBoxTitle { display: none; }
 
+}
+
+/* uploadForm */
+#uploadForm fieldset {
+    outline: none;
+}
+
+#uploadForm legend  {
+    padding: 1em 0;
+    background-color: transparent;
+}
+
+ul#uploader_filelist { padding: 0; }
+
+#photosAddContent .showFieldset a {
+    color: #4264bd;
+}
+#photosAddContent .showFieldset a:hover { text-decoration: underline; }
+
+#uploadForm #startUpload { margin: 5px 0 40px 15px !important; }
+
+
+/* identification login */
+#identification.properties span.property { width: 100px; }
+
+#identification .pwg-button {
+    display: inline-flex;
+    align-items: center;
+}
+
+#identification p:last-child { margin-bottom: 40px; }
+
+#identification a[title=Register] { margin-right: 1em; }
+
+#identification #remember_me { margin-top: .5em; }
+
+fieldset#oauth_wrap { outline: none; }
+#oauth_wrap legend { 
+    background-color: transparent;
+}
+
+@media screen and (max-width: 580px) {
+    #identification.properties span.property { width: auto; }
+    #identification.properties li input[type=text], #identification.properties li input[type=password] { width: calc(100% - 14px); }
+}
+    
+/* registration */
+#registerPage { flex: 1 } /* footer stays bottom */
+
+#registerPage .properties span.property {
+    display: inline-block;
+    line-height: normal;
+    width: 270px;
+}
+
+#registerPage .bottomButtons { text-align: center; }
+#registerPage .bottomButtons input[type=submit] { margin-right: 1em; }
+
+@media screen and (max-width: 800px) {
+    #registerPage .properties li, #registerPage .properties span.property { width: 100%; }
+}
+
+@media screen and (max-width: 200px) {
+    #registerPage .bottomButtons input[type=submit] { margin-right: 0; }
 }
 
 /* infos and errors */
