@@ -27,6 +27,7 @@ add_event_handler('loc_begin_comments', 'clouds_menubar');
 add_event_handler('loc_begin_about', 'clouds_menubar');
 add_event_handler('loc_begin_notification', 'clouds_menubar');
 add_event_handler('loc_begin_picture', 'clouds_menubar');
+add_event_handler('loc_begin_identification', 'clouds_menubar');
 function clouds_menubar() {
   global $conf, $page, $template;
   $gallery_title = $conf['gallery_title'];
