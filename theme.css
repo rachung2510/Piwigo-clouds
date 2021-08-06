@@ -34,6 +34,7 @@ div#content {
 .contentWithMenu { margin: 0; }
 
 .titrePage {
+    position: relative;
     padding: 10px 0!important;
 }
 
@@ -378,6 +379,118 @@ a#link-mbIdentification { flex-direction: row !important; }
 }
 
 .nc-icon-user { margin-right: 1px; }
+
+/* category actions */
+.pwg-icon-menu {
+    display: none !important;
+    float: right;
+    justify-content: flex-end !important;
+}
+
+.categoryActions {
+    display: flex;
+    align-items: center;
+}
+
+.categoryActions li:not(#languageSwitch) { margin: 0 2px; }
+
+.pwg-button-text {
+    margin-left: 0.5em;
+}
+
+[class*="langflag-"] { margin-right: 0 !important; }
+
+li#languageSwitch {
+    margin-left: 7px;
+}
+
+.switchBox {
+    background-color: #f9f9f9 !important;
+    border: 1px solid #dbdbdb !important;
+    padding: 0.5em 1em .5em .5em;
+    box-sizing: border-box;
+    color: #333;
+}
+
+.switchBox a { color: #333 !important; }
+.switchBox a:hover { color: #999 !important; }
+.switchBoxTitle { border-bottom: 1px solid #ccc !important}
+
+.switchBox span { 
+    line-height: 2em;
+    margin-right: 0.5em !important;
+}
+
+#languageSwitchBox { 
+    left: unset !important;
+    right: 0 !important;
+    top: 36px !important; 
+}
+
+#sortOrderLink.active, #derivativeSwitchLink.active,
+#sortOrderLink.active .pwg-icon::before, #derivativeSwitchLink.active .pwg-icon::before
+{ color: #999; }
+
+@media screen and (max-width: 480px) {
+    .pwg-icon-menu { display: inline-flex !important; }
+
+    .categoryActions {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        position: absolute;
+        right: 0;
+        top: 36px; /* padding-top 10px and height 26px */
+        margin: 0;
+        padding: .5em 1em .5em .5em;
+        background-color: #ececec;
+        z-index: 1;
+    }
+
+    .categoryActions li {
+        margin: 3px 0 !important;
+        line-height: 26px;
+    }
+
+    .pwg-icon:hover:before { color: #333 !important; }
+    .categoryActions a:hover { color: #333; }
+
+    .pwg-button {
+        display: flex;
+        align-items: center;
+    }
+
+    .pwg-button-text { 
+        display: inline-block;
+        text-align: left;
+        line-height: normal;
+        max-width: calc(100vw - 58px - 2em);
+    }
+
+    .pwg-icon-menu.active::before { color: #999 !important; }
+
+    li#languageSwitch { margin: 0; }
+
+    .langflag-en_US {
+        margin-left: 1px !important;
+        margin-right: 1px !important;
+    }
+
+    #languageSwitchLink span:not(.pwg-button-text) { margin: 5px 0; }
+
+    #languageSwitchBox { padding: 0 5px !important; }
+    #languageSwitchBox a { 
+        display: block !important;
+        margin: 1em 0 !important;
+        width: unset !important;
+    }
+
+    .switchBox, #languageSwitchBox {
+        position: static !important;
+    }
+    .switchBoxTitle { display: none; }
+
+}
 
 /* infos and errors */
 .infos {
@@ -1041,7 +1154,7 @@ body {
     width: 100%;
     background: #4264bd;
 /*    transform: translateY(-999px); */
-    transition: max-height 300ms ease-in-out;
+/*    transition: max-height 100ms ease-in-out; */
     max-height: 0px;
     overflow-y: hidden;
     justify-content: flex-end;
