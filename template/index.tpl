@@ -170,6 +170,10 @@
 
 <h2>{$TITLE} {if $NB_ITEMS > 0}<span class="badge nb_items">{$NB_ITEMS}</span>{/if}</h2>
 
+{if isset($chronology.TITLE)}
+<h2 class="calendarTitle">{$chronology.TITLE}</h2>
+{/if}
+
 {if isset($chronology_views)}
 <div class="calendarViews">{'View'|@translate}:
 	<a id="calendarViewSwitchLink" href="#">
@@ -184,9 +188,12 @@
 </div>
 {/if}
 
+<div style="clear:both"></div>
+{*
 {if isset($chronology.TITLE)}
 <h2 class="calendarTitle">{$chronology.TITLE}</h2>
 {/if}
+*}
 
 </div>{* <!-- titrePage --> *}
 
