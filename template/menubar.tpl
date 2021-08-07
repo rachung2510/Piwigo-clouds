@@ -142,6 +142,7 @@
 {if !empty($blocks) }
 <div id="menubar">
     <div id="galleryTitle">
+        <a class="mb-logo" href="{$gallery_url}"><img src="https://smartairfilters.com/images/sa-logo.svg"></a>
         <h2><a href="{$gallery_url}">{$gallery_title}</a></h2>
         <img class="nc-icon-menu" src="{$icons_url}svg/core/actions/menu?color=fff">
     </div>
