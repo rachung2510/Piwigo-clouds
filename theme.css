@@ -436,14 +436,6 @@ li#languageSwitch {
 #sortOrderLink.active .pwg-icon::before, #derivativeSwitchLink.active .pwg-icon::before
 { color: #999; }
 
-.content .calendarBar { margin: 0 4px 8px; }
-.calendarTitle { float: left; }
-.calItem {
-    display: inline-block;
-    margin: 0 0 0.5ch;
-    padding: 1px 0.25em;
-}
-
 @media screen and (max-width: 480px) {
     .pwg-icon-menu { display: inline-flex !important; }
 
@@ -505,6 +497,21 @@ li#languageSwitch {
 
 }
 
+/* calendar */
+.content .calendarBar { margin: 0 4px 8px; }
+.calendarTitle { float: left; }
+.calItem {
+    display: inline-block;
+    margin: 0 0 0.5ch;
+    padding: 1px 0.25em;
+    border: 1px solid #dbdbdb;
+    border-radius: 0.25em;
+}
+
+.calMonth thead { color: #333; }
+TD.calDayCellFull, TD.calDayCellEmpty { border: 1px solid #dbdbdb; }
+.calBackDate { color: #666; }
+
 /* uploadForm */
 #uploadForm fieldset {
     outline: none;
@@ -525,19 +532,134 @@ ul#uploader_filelist { padding: 0; }
 #uploadForm #startUpload { margin: 5px 0 40px 15px !important; }
 
 
-/* identification login */
-#identification.properties span.property { width: 100px; }
+/* picture */
+#the_page { overflow: auto; }
 
-#identification .pwg-button {
+#imageHeaderBar {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+#imageHeaderBar .browsePath {
+    float: none;
+    margin: 0;
+}
+
+#imageHeaderBar .imageNumber { margin-left: auto; }
+
+#theImage { margin: 1em 0; }
+
+#imageInfos {
+    display: flex;
+    align-items: center;
+    background-color: #ececec;
+    padding: 1em;
+    border-radius: 10px;
+    min-height: unset;
+}
+#imageInfos .navThumbsPrev { margin-right: auto; }
+#imageInfos .navThumbsNext { margin-left: auto; }
+
+#imageInfos div[class^="navThumbs"] {
+    position: relative; /* for thumbHoverIcon */
+    border-radius: 5px;
+    overflow: hidden;
+/*    height: 120px; */
+}
+
+.navThumb img { width: 120px; height: 120px; }
+
+div.thumbHover {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: #dbdbdb;
+    width: 120px;
+    height: 120px;
+    border: none;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+
+.thumbHoverIcon {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+.navThumb:hover > .thumbHoverIcon { visibility: visible; }
+
+.thumbHoverIcon .pwg-icon { width: 80px; height: 80px; }
+.thumbHoverIcon .pwg-icon:hover:before { color: white; }
+.thumbHoverIcon [class^="pwg-icon"]:before {
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+}
+
+.pwg-icon-prev::before { content: "\f104"; }
+.pwg-icon-next::before { content: "\f105"; }
+.pwg-icon-back::before { content: "\f148"; font-size: 60px !important; }
+
+
+.imageInfoTable { 
+    margin: 0;
+}
+.imageInfo#Categories li { list-style: none; }
+.imageInfoTable ul { padding: 0; }
+
+#linkPrev, #linkNext { float:none; margin:0; }
+
+.imageInfo dt { text-align: left; }
+
+#commentAdd, #pictureCommentList { float: none; padding: 0; width: unset; }
+#commentAdd { width: 500px; }
+
+#commentAdd input[type="text"], #comments textarea { box-sizing: border-box; }
+
+#thePicturePage .commentsList { margin-top: 27px; }
+
+#thePicturePage .commentElement {
+    padding: 1em;
+    width: min(800px, calc(100% - 2em));
+}
+#thePicturePage .commentElement .description { padding: 0; }
+
+@media screen and (max-width: 780px) {
+    .navThumb img, div.thumbHover { width: 100px; height: 100px; }
+    .imageInfoTable { max-width: 470px; }
+}
+
+@media screen and (max-width: 700px) {
+    div[class^="navThumbs"] { display: none; }
+    .imageInfoTable { max-width: unset; margin: auto; }
+}
+
+@media screen and (max-width: 530px) {
+    #commentAdd { width: 100%; }
+}
+
+/* identification login */
+#theIdentificationPage .properties span.property { width: 100px; }
+
+#theIdentificationPage .pwg-button, #cboxContent .pwg-button {
     display: inline-flex;
     align-items: center;
 }
 
-#identification p:last-child { margin-bottom: 40px; }
+#theIdentificationPage p:last-child { margin-bottom: 40px; }
 
-#identification a[title=Register] { margin-right: 1em; }
+#theIdentificationPage a[title=Register] { margin-right: 1em; }
 
-#identification #remember_me { margin-top: .5em; }
+#theIdentificationPage #remember_me { margin-top: .5em; }
+
+#theIdentificationPage .pwg-icon { justify-content: flex-end; }
 
 fieldset#oauth_wrap { outline: none; }
 #oauth_wrap legend { 
@@ -545,8 +667,8 @@ fieldset#oauth_wrap { outline: none; }
 }
 
 @media screen and (max-width: 580px) {
-    #identification.properties span.property { width: auto; }
-    #identification.properties li input[type=text], #identification.properties li input[type=password] { width: calc(100% - 14px); }
+    #theIdentificationPage .properties span.property { width: auto; }
+    #theIdentificationPage .properties li input[type=text], #theIdentificationPage .properties li input[type=password] { width: calc(100% - 14px); }
 }
     
 /* registration */
@@ -565,9 +687,17 @@ fieldset#oauth_wrap { outline: none; }
     #registerPage .properties li, #registerPage .properties span.property { width: 100%; }
 }
 
+@media screen and (max-width: 500px) {
+    #oauth { width: calc(100% - 32px) !important; }
+}
+
 @media screen and (max-width: 200px) {
     #registerPage .bottomButtons input[type=submit] { margin-right: 0; }
 }
+
+/* lost password */
+#lostPassword p { margin: 1.5em 1em; }
+#lostPassword .bottomButtons { padding: 0; }
 
 /* infos and errors */
 .infos {
@@ -779,6 +909,9 @@ fieldset.tagLetter {
     margin: 0 .5em .5em 0;
 }
 
+.navigationBar span.pageNumberSelected, .navigationBar a { margin: 0 .25em; }
+.content .navigationBar { margin: 1em 4px 40px; }
+
 @media screen and (max-width: 480px) {
     #fullTagLetters li {
         list-style: none;
@@ -828,6 +961,8 @@ fieldset.tagLetter {
     .filter input[type=submit], .filter input[type=reset] { margin: 0 0 0.5em 1em; }
 }
 
+.search_results { margin: 0; }
+
 /* about & notification */
 #piwigoAbout { width: min(600px, 100%); }
 #linkToPiwigo a, .notification dl a { color: #4264bd; }
@@ -839,7 +974,7 @@ fieldset.tagLetter {
     margin: auto;
 }
 
-/* customize */
+/* customize profile */
 /*
 #profile fieldset {
     margin: 0 0 1em;
@@ -893,16 +1028,21 @@ fieldset.tagLetter {
     border: 1px solid #355199;
     color: white;
 }
+*/
 
 .bottomButtons input[name*="reset"]:hover {
     border: 1px solid #355199;
+    background-color: transparent;
+    color: #222;
 }
+
 
 .bottomButtons input[name*="reset"]:active { 
     border: 1px solid #dbdbdb;
     background-color: #dbdbdb; 
 }
-*/
+
+#oauth { margin: 1em auto 0 !important; }
 
 @media screen and (max-width: 580px) {
     .properties li, .properties span.property { width: 100%; }
@@ -918,15 +1058,16 @@ fieldset.tagLetter {
 }
 
 /* comments */
-#commentsForm ul {
+#theCommentsPage ul {
     margin: 0 1em;
 }
 
-#commentsForm ul:last-child { margin-bottom: 1em; }
+#theCommentsPage ul:last-child { margin-bottom: 1em; }
+#theCommentsPage ul.commentsList { margin: 0; }
 
-#commentsForm li { width: 100%; }
-#commentsForm li input { max-width: calc(100% - 12px); }
-#commentsForm li select { max-width: 100%; }
+/*#theCommentsPage li { width: 100%; }*/
+#theCommentsPage li input { max-width: calc(100% - 12px); }
+#theCommentsPage li select { max-width: 100%; }
 
 #comments {
     padding:0 ;
@@ -941,15 +1082,15 @@ fieldset.tagLetter {
     background: #dbdbdb;
 }
 
-.commentElement .illustration {
+#theCommentsPage .commentElement .illustration {
     width: 120px !important;
     position: relative;
     flex-shrink: 0;
 }
 
-.commentElement .illustration::before { content:''; display:block; margin-top:100%; }
+#theCommentsPage .commentElement .illustration::before { content:''; display:block; margin-top:100%; }
 
-.commentElement .illustration a {
+#theCommentsPage .commentElement .illustration a {
     display: block;
     position: absolute;
     top: 0;
@@ -957,7 +1098,7 @@ fieldset.tagLetter {
     height: 100%;
 }
 
-.commentElement .illustration a img {
+#theCommentsPage .commentElement .illustration a img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -978,18 +1119,18 @@ fieldset.tagLetter {
 }
 
 @media screen and (max-width: 300px) {
-    #commentsForm li input { width: calc(100% - 12px); } /* input padding is 6px */
-    #commentsForm li select { width: 100%; }
+    #theCommentsPage li input { width: calc(100% - 12px); } /* input padding is 6px */
+    #theCommentsPage li select { width: 100%; }
 
     .commentElement { flex-direction: column; }
 
-    .commentElement .description {
+    #theCommentsPage .commentElement .description {
         margin-top: 0.7em;
         width: calc(100% - 1.4em); /* li padding is 0.7em */
         box-sizing: border-box;
         padding: 0;
     }
-    #commentsForm input[type=submit] {
+    #theCommentsPage input[type=submit] {
         margin: 0;
         white-space: break-spaces;
     }
@@ -1011,7 +1152,9 @@ fieldset.tagLetter {
 #forbidAction { padding: 25px 0.5em !important; }
 
 #batchManagerGlobal .navigationBar { padding: 0 10px !important; }
-.navigationBar, .navigationBar a, .navigationBar span:not(.pageNumberSelected) { background-color: #ececec !important; }
+#batchManagerGlobal .navigationBar, #batchManagerGlobal .navigationBar a, #batchManagerGlobal .navigationBar span:not(.pageNumberSelected) { 
+    background-color: #ececec !important; 
+}
 .content .pageNumberSelected { font-style: unset; }
 
 .thumbnailsActionsNumber {
@@ -1029,6 +1172,11 @@ fieldset.tagLetter {
 #addFilter .icon-plus:before, .icon-arrows-cw { margin-right: 8px !important; }
 
 #action_download label { white-space: nowrap; }
+
+#community_edit_photos #addAlbumForm input[type=submit]:hover, #community_edit_photos #addAlbumForm input[type=submit]:active {
+    border: none;
+    color: #3C3C3C;
+}
 
 @media screen and (max-width: 700px) {
     #batchManagerGlobal ul.thumbnails {
@@ -1075,8 +1223,6 @@ fieldset.tagLetter {
     }
 
 }
-
-
 
 /* footer */
 #copyright {
@@ -1171,8 +1317,6 @@ fieldset.tagLetter {
 
 .pwg-icon-map::before { content: "\f279"; }
 .pwg-icon-globe::before { content: "\f0ac"; }
-
-/* @import "responsive-screens.css"; */
 
 
 /* responsive screens */

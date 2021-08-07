@@ -9,16 +9,18 @@ Author: John Do
 Author URI: http://piwigo.org/
 */
 
-$themeconf = array(
-  'parent' => 'default',
-  'colorscheme' => 'clear',
-);
-
 define('CLOUDS_PATH' , PHPWG_THEMES_PATH.basename(dirname(__FILE__)).'/');
 define('CLOUDS_TEMPLATE_PATH' , CLOUDS_PATH.'template/');
 
+$themeconf = array(
+  'parent' => 'default',
+  'colorscheme' => 'clear',
+  'local_head' => 'local_head.tpl',
+);
+
 /* menubar */
 add_event_handler('loc_begin_index', 'clouds_menubar');
+add_event_handler('loc_begin_identification', 'clouds_menubar');
 add_event_handler('loc_begin_register', 'clouds_menubar');
 add_event_handler('loc_begin_profile', 'clouds_menubar');
 add_event_handler('loc_begin_tags', 'clouds_menubar');
@@ -27,7 +29,7 @@ add_event_handler('loc_begin_comments', 'clouds_menubar');
 add_event_handler('loc_begin_about', 'clouds_menubar');
 add_event_handler('loc_begin_notification', 'clouds_menubar');
 add_event_handler('loc_begin_picture', 'clouds_menubar');
-add_event_handler('loc_begin_identification', 'clouds_menubar');
+add_event_handler('loc_begin_password', 'clouds_menubar');
 function clouds_menubar() {
   global $conf, $page, $template;
   $gallery_title = $conf['gallery_title'];
@@ -67,14 +69,14 @@ function extended_desc_parse_lang_tag($params, $smarty) {
   }
 
   if (preg_match('#\[lang=('.$user_lang.'|'.$small_user_lang.')\]#i', $desc)) {
-    // la balise avec la langue de l'utilisateur a été trouvée
+    // tag with user's language found
     $patterns[] = '#(^|\[/lang\])(.*?)(\[lang=(' . $user_lang . '|' . $small_user_lang . '|all)\]|$)#is';
     $replacements[] = '';
     $patterns[] = '#\[lang=(' . $user_lang . '|' . $small_user_lang . '|all)\](.*?)\[/lang\]#is';
     $replacements[] = '\\1';
   } else {
-    // la balise avec la langue de l'utilisateur n'a pas été trouvée
-    // On prend tout ce qui est hors balise
+    // tag with user's language not found
+    // take everything outside the tag
     $patterns[] = '#\[lang=all\](.*?)\[/lang\]#is';
     $replacements[] = '\\1';
     $patterns[] = '#\[lang=.*\].*\[/lang\]#is';

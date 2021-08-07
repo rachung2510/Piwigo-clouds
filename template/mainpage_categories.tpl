@@ -16,7 +16,8 @@
 <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
 <ul class="thumbnailCategories">
 {foreach from=$category_thumbnails item=cat name=cat_loop}
-{assign var=derivative value=$pwg->derivative($derivative_params, $cat.representative.src_image)}
+{*{assign var=derivative value=$pwg->derivative($derivative_params, $cat.representative.src_image)}*}
+{assign var=derivative value=$pwg->derivative('2small', $cat.representative.src_image)}
 {if !$derivative->is_cached()}
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}

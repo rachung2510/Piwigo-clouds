@@ -35,7 +35,7 @@
 
                 // wrap text only when text exceeds certain length
                 $("#dropdown-"+id).find("a").each(function() {
-                    if ($(this).text().length > 60) { // roughly 60 chars
+                    if ($(this).text().length > 50) { // roughly 50 chars
                         $(this).css('white-space', 'normal');
                     }
                 });
