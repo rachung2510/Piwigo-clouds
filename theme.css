@@ -162,6 +162,18 @@ div#menu { margin-left: auto; } /* flex align right */
 
 #galleryTitle h2 a:hover, #galleryTitle h2 a:focus { opacity: 0.6; }
 
+#galleryTitle .mb-logo {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#galleryTitle .mb-logo img { 
+    height: 80%;
+    margin-right: 1ch;
+}
+
 #menu, #menubar-tabs { 
     display: inline-flex; 
     vertical-align: top;
@@ -548,6 +560,7 @@ ul#uploader_filelist { padding: 0; }
 }
 
 #imageHeaderBar .imageNumber { margin-left: auto; }
+#imageHeaderBar h2 { word-break: break-all; }
 
 #imageToolBar { position: relative; } /* for actionButtons */
 #imageToolBar .actionButtons {
@@ -569,6 +582,7 @@ ul#uploader_filelist { padding: 0; }
     border-radius: 10px;
     min-height: unset;
 }
+
 #imageInfos .navThumbsPrev { margin-right: auto; }
 #imageInfos .navThumbsNext { margin-left: auto; }
 
@@ -623,13 +637,18 @@ div.thumbHover {
 
 .imageInfoTable { 
     margin: 0;
+    max-width: calc(100% - 260px);
 }
 .imageInfo#Categories li { list-style: none; }
 .imageInfoTable ul { padding: 0; }
 
 #linkPrev, #linkNext { float:none; margin:0; }
 
-.imageInfo dt { text-align: left; }
+.imageInfo dt {
+    white-space: nowrap;
+    text-align: left;
+}
+#File.imageInfo dd { word-break: break-all; }
 
 #commentAdd, #pictureCommentList { float: none; padding: 0; width: unset; }
 #commentAdd { width: 500px; }
@@ -647,7 +666,7 @@ div.thumbHover {
 @media screen and (max-width: 780px) {
     div[class^="navThumbs"] { height: 100px; }
     .navThumb img, div.thumbHover { width: 100px; height: 100px; }
-    .imageInfoTable { max-width: 470px; }
+    .imageInfoTable { max-width: calc(100% - 220px) }
 }
 
 @media screen and (max-width: 700px) {
@@ -676,6 +695,9 @@ div.thumbHover {
     #imageToolBar .actionButtons .pwg-button-text { display: inline-block; }
 
     .actionButtons .switchBox { position: static !important; }
+
+    .imageInfo dt { white-space: normal; }
+
 }
 
 /* slideshow */
