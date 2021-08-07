@@ -149,11 +149,6 @@ y.callService(
 {if isset($COMMENT_IMG)}
 <p class="imageComment">{$COMMENT_IMG}</p>
 {/if}
-{if isset($U_SLIDESHOW_STOP)}
-<p>
-	[ <a href="{$U_SLIDESHOW_STOP}">{'stop the slideshow'|@translate}</a> ]
-</p>
-{/if}
 
 </div>{*<!-- no significant white space for elegant-->
 *}<div id="infoSwitcher"></div>{*<!-- no significant white space for elegant-->
