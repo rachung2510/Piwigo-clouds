@@ -87,4 +87,33 @@ function extended_desc_parse_lang_tag($params, $smarty) {
 
 }
 
+// render image in single page
+add_event_handler('render_element_content', 'render_svg', 40, 2 );
+function render_svg($content, $picture)
+{
+    global $template, $picture, $page, $conf, $user, $refresh;
+
+    $img = $picture['current'];
+    $name = substr($img['file'], 0, strrpos($img['file'], '.'));
+    $ext = substr($img['file'], strrpos($img['file'], '.')+1); // file extension
+    if ($ext == 'svg' or $ext == 'gif') {
+        $path = $picture['current']['path'];
+
+        $template->assign(
+            array(
+                'url' => $path,
+                'title' => $name.' - '.$img['file'],
+                'alt' => $img['file'],
+            )
+        );
+        $template->set_filenames(
+            array('preview' => CLOUDS_TEMPLATE_PATH."preview.tpl")
+        );
+
+        // Return the rendered html
+        $test = $template->parse('preview', true);
+        return $test;
+    }
+}
+
 ?>
