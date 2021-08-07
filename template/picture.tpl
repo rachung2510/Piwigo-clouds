@@ -1,3 +1,13 @@
+{footer_script require='jquery'}{literal}
+    $(".pwg-icon-menu").click( function() {
+        if ($(".actionButtons").is(":hidden")) {
+            $(".actionButtons").show();
+        } else {
+            $(".actionButtons").hide();
+        }
+    });
+{/literal}{/footer_script}
+
 {combine_script id='core.switchbox' load='async' require='jquery' path='themes/default/js/switchbox.js'}
 {if isset($MENUBAR)}{$MENUBAR}{/if}
 <div id="content"{if isset($MENUBAR)} class="contentWithMenu"{/if}>
@@ -17,6 +27,8 @@
 
 <div id="imageToolBar">
 {include file='picture_nav_buttons.tpl'|@get_extent:'picture_nav_buttons'}
+
+<span class="pwg-icon pwg-icon-menu"></span>
 
 <div class="actionButtons">
 {if isset($current.unique_derivatives) && count($current.unique_derivatives)>1}
@@ -131,32 +143,6 @@ y.callService(
 
 <div id="theImageAndInfos">
 <div id="theImage">
-{*
-{if $DISPLAY_NAV_THUMB}
-	<div class="navThumbs">
-		{if isset($previous)}
-			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE_ESC}" rel="prev">
-				<span class="thumbHover prevThumbHover"></span>
-				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE_ESC}">
-			</a>
-		{elseif isset($U_UP)}
-			<a class="navThumb" id="linkPrev" href="{$U_UP}" title="{'Thumbnails'|@translate}">
-				<div class="thumbHover">{'First Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
-			</a>
-		{/if}
-		{if isset($next)}
-			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE_ESC}" rel="next">
-				<span class="thumbHover nextThumbHover"></span>
-				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE_ESC}">
-			</a>
-		{elseif isset($U_UP)}
-			<a class="navThumb" id="linkNext"  href="{$U_UP}"  title="{'Thumbnails'|@translate}">
-				<div class="thumbHover">{'Last Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
-			</a>
-		{/if}
-	</div>
-{/if}
-*}
 
 {$ELEMENT_CONTENT}
 
@@ -175,9 +161,10 @@ y.callService(
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbsPrev">
 		{if isset($previous)}
+{assign var="prev_ext" value="{{$previous.path|substr:-4}|strtolower}"}
 			<a class="navThumb" id="linkPrev" href="{$previous.U_IMG}" title="{'Previous'|@translate} : {$previous.TITLE_ESC}" rel="prev">
 				<span class="thumbHover prevThumbHover"></span>
-				<img src="{$previous.derivatives.square->get_url()}" alt="{$previous.TITLE_ESC}">
+				<img src="{if $prev_ext=='.svg' or $prev_ext=='.gif'}{$previous.path}{else}{$previous.derivatives.square->get_url()}{/if}" alt="{$previous.TITLE_ESC}">
                 <div class="thumbHoverIcon"><span class="pwg-icon pwg-icon-prev"></span></div>
 			</a>
 		{elseif isset($U_UP)}
@@ -186,18 +173,6 @@ y.callService(
                 <div class="thumbHoverIcon"><span class="pwg-icon pwg-icon-back"></span></div>
 			</a>
 		{/if}
-{*
-		{if isset($next)}
-			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE_ESC}" rel="next">
-				<span class="thumbHover nextThumbHover"></span>
-				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE_ESC}">
-			</a>
-		{elseif isset($U_UP)}
-			<a class="navThumb" id="linkNext"  href="{$U_UP}"  title="{'Thumbnails'|@translate}">
-				<div class="thumbHover">{'Last Page'|@translate}<br><br>{'Go back to the album'|@translate}</div>
-			</a>
-		{/if}
-*}
 	</div>
 {/if}
 
@@ -376,9 +351,10 @@ function setPrivacyLevel(id, level){
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbsNext">
 		{if isset($next)}
+{assign var="next_ext" value="{{$next.path|substr:-4}|strtolower}"}
 			<a class="navThumb" id="linkNext" href="{$next.U_IMG}" title="{'Next'|@translate} : {$next.TITLE_ESC}" rel="next">
 				<span class="thumbHover nextThumbHover"></span>
-				<img src="{$next.derivatives.square->get_url()}" alt="{$next.TITLE_ESC}">
+				<img src="{if $next_ext=='.svg' or $next_ext=='.gif'}{$next.path}{else}{$next.derivatives.square->get_url()}{/if}" alt="{$next.TITLE_ESC}">
                 <div class="thumbHoverIcon"><span class="pwg-icon pwg-icon-next"></span></div>
 			</a>
 		{elseif isset($U_UP)}
