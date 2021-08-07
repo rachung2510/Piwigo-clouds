@@ -16,6 +16,7 @@ $themeconf = array(
   'parent' => 'default',
   'colorscheme' => 'clear',
   'local_head' => 'local_head.tpl',
+  'mime_icon_dir' => CLOUDS_PATH.'icon/mimetypes/',
 );
 
 /* menubar */
