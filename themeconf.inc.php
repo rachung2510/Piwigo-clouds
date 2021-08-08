@@ -19,6 +19,8 @@ $themeconf = array(
   'mime_icon_dir' => CLOUDS_PATH.'icon/mimetypes/',
 );
 
+load_language('theme.lang', CLOUDS_PATH);
+
 /* menubar */
 add_event_handler('loc_begin_index', 'clouds_menubar');
 add_event_handler('loc_begin_identification', 'clouds_menubar');
@@ -34,7 +36,8 @@ add_event_handler('loc_begin_password', 'clouds_menubar');
 function clouds_menubar() {
   global $conf, $page, $template;
   $gallery_title = $conf['gallery_title'];
-  $icons_url = 'https://box.smartairfilters.com/';
+//  $icons_url = 'https://box.smartairfilters.com/';
+  $icons_url = CLOUDS_PATH.'icon/nextcloud/';
   $template->set_filename('menubar', CLOUDS_TEMPLATE_PATH.'menubar.tpl');
   $template->assign(array(
     'gallery_title' => $gallery_title,
@@ -43,7 +46,7 @@ function clouds_menubar() {
     'page_section' => isset($page['section']) ? $page['section'] : null,
     'is_homepage' => isset($page['is_homepage']),
   ));
-  $template->pparse('menubar');
+  $template->parse('menubar',true);
 }
 
 /**
@@ -116,5 +119,70 @@ function render_svg($content, $picture)
         return $test;
     }
 }
+
+// update clear or dark mood
+global $conf, $user;
+if (isset($conf['clouds_theme'])) {
+    if (!is_array($conf['clouds_theme']))
+        $conf['clouds_theme'] = unserialize($conf['clouds_theme']);
+
+    // switch mood when user clicks button
+    if (!is_a_guest() and !is_generic()) {
+        $user_id = $user['user_id'];
+        if (isset($_GET['mood'])) {
+            $new_conf = $conf['clouds_theme'];
+            $not_mood = ($_GET['mood'] == 'clear') ? 'dark' : 'clear'; // opposite
+            $new_conf[$_GET['mood']][$user_id] = 1;
+            unset($new_conf[$not_mood][$user_id]);
+            conf_update_param('clouds_theme', addslashes(serialize($new_conf)));
+
+            // redirect to refresh themeconf
+            $redirect_url = get_root_url().get_query_string_diff(array("mood"));
+            redirect($redirect_url);
+        }
+    }
+}
+
+// update themeconf colorscheme
+if (!is_a_guest() and !is_generic()) {
+    $user_id = $user['user_id'];
+    $user_mood = isset($conf['clouds_theme']['dark'][$user_id]) ? 'dark' : 'clear'; // default to clear
+    if ($user_mood == 'dark') {
+        $themeconf['colorscheme'] = 'dark';
+    }
+}
+
+// template variables for mood switch button
+add_event_handler('loc_end_index', 'clouds_mood_switch');
+add_event_handler('loc_end_picture', 'clouds_mood_switch');
+function clouds_mood_switch() {
+    global $conf, $user, $template;
+
+    $user_id = $user['user_id'];
+    if (isset($conf['clouds_theme']) && isset($conf['clouds_theme']['dark'])) {
+        $mood = (isset($conf['clouds_theme']['dark'][$user_id])) ? 'dark' : 'clear'; // default to light
+    } else {
+        $mood = 'clear'; // default to light
+    }
+    $new_mood = ($mood == 'clear') ? 'dark' : 'clear'; // opposite
+    $base_url = get_root_url().get_query_string_diff(array("mood"));
+
+    // disable mood switch when not logged in
+    $template->assign(array(
+        'enable_mood_switch' => (is_a_guest() or is_generic()) ? 0 : 1,
+        'mood' => $mood,
+        'mood_title' => l10n('Switch to '.$new_mood.' mode'),
+        'mood_switch_url' => add_url_params($base_url, array('mood' => $new_mood)), // opposite
+    ));
+    $template->set_filename('mood_switch', CLOUDS_TEMPLATE_PATH.'mood_button.tpl');
+    $button = $template->parse('mood_switch', true);
+    if (script_basename()=='index') {
+        $template->add_index_button($button, BUTTONS_RANK_NEUTRAL);
+    } else {
+        $template->add_picture_button($button, BUTTONS_RANK_NEUTRAL);
+    }
+    $template->clear_assign('mood_switch');
+}
+
 
 ?>
