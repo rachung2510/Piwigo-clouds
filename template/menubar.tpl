@@ -142,9 +142,11 @@
 {if !empty($blocks) }
 <div id="menubar">
     <div id="galleryTitle">
-        <a class="mb-logo" href="{$gallery_url}"><img src="https://smartairfilters.com/images/sa-logo.svg"></a>
+{*        <a class="mb-logo" href="{$gallery_url}"><img src="https://smartairfilters.com/images/sa-logo.svg"></a> *}
+        <a class="mb-logo" href="{$gallery_url}"><img src="{$icons_url}sa-logo.svg"></a>
         <h2><a href="{$gallery_url}">{$gallery_title}</a></h2>
-        <img class="nc-icon-menu" src="{$icons_url}svg/core/actions/menu?color=fff">
+{*        <img class="nc-icon-menu" src="{$icons_url}svg/core/actions/menu?color=fff"> *}
+        <img class="nc-icon-menu" src="{$icons_url}menu.svg">
     </div>
     {if !empty($blocks)}
     <div id="menu">
@@ -153,7 +155,8 @@
 {* ======== mbHome ======== *}
         <dl id="mbHome">
 <dt><a href="{$gallery_url}">
-    <img class="nc-icon-mbHome nc-icon-mb" src="{$icons_url}svg/core/places/home?color=fff">
+{*    <img class="nc-icon-mbHome nc-icon-mb" src="{$icons_url}svg/core/places/home?color=fff"> *}
+    <img class="nc-icon-mbHome nc-icon-mb" src="{$icons_url}home.svg">
     <span class="mb-label">{'Home'|@translate}</span>
 </a></dt>
 <div class="pointer{if $is_homepage && $page_section=='categories'} is-page{/if}"></div>
@@ -168,7 +171,8 @@
 {* ======== mbLinks ======== *}
             {if $id=="mbLinks"}
 <dt id="tab-{$id}"><a id="link-{$id}">
-    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/public?color=fff">
+{*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/public?color=fff"> *}
+    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}public.svg">
     <span class="mb-label">{'Links'|@translate}</span>
 </a></dt>
 <div class="pointer-{$id}"></div>
@@ -183,16 +187,9 @@
 {* ======== mbCategories ======== *}
             {elseif $id=="mbCategories"}
 <dt id="tab-{$id}">
-{*
-    {if isset($U_START_FILTER)}
-    <a href="{$U_START_FILTER}" class="pwg-state-default pwg-button menubarFilter" title="{'display only recently posted photos'|@translate}" rel="nofollow"><span class="pwg-icon pwg-icon-filter"> </span></a>
-    {/if}
-    {if isset($U_STOP_FILTER)}
-    <a href="{$U_STOP_FILTER}" class="pwg-state-default pwg-button menubarFilter" title="{'return to the display of all photos'|@translate}"><span class="pwg-icon pwg-icon-filter-del"> </span></a>
-    {/if}
-*}
     <a id="link-{$id}">
-        <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}apps/deck/img/deck.svg?v=a8813991">
+{*        <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}apps/deck/img/deck.svg?v=a8813991"> *}
+        <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}deck.svg">
         <span class="mb-label">{'Albums'|@translate}</span>
     </a>
 </dt>
@@ -207,7 +204,8 @@
       <span class="{if $cat.nb_images > 0}menuInfoCat{else}menuInfoCatByChild{/if} badge" title="{$cat.TITLE}">{$cat.count_images}</span>
       {/if}
       {if !empty($cat.icon_ts)}
-      <img class="nc-icon-recent" title="{$cat.icon_ts.TITLE}" src="{$icons_url}svg/files/recent?color=808080" alt="(!)">
+      <span class="pwg-icon pwg-icon-recent"></span>
+{*      <img class="nc-icon-recent" title="{$cat.icon_ts.TITLE}" src="{$icons_url}svg/files/recent?color=808080" alt="(!)"> *}
       {/if}
       </a>
 </li>
@@ -220,7 +218,8 @@
 {* ======== mbTags ======== *}
             {elseif $id=="mbTags"}
 <dt id="tab-{$id}"><a id="link-{$id}">
-    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff">
+{*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff"> *}
+    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}tag.svg">
     <span class="mb-label">{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</span>
 </a></dt>
 <div class="pointer-{$id}{if $page_section=='tags'} is-page{/if}"></div>
@@ -241,7 +240,8 @@
 {* ======== mbSpecials, mbMenu ======== *}
             {elseif $id=="mbSpecials"}
 <dt id="tab-{$id}"><a id="link-{$id}">
-    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/more?color=fff">
+{*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/more?color=fff"> *}
+    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}more.svg">
     <span class="mb-label">{'More'|@translate}</span>
 </a></dt>
 <div class="pointer-{$id}"></div>
@@ -264,7 +264,8 @@
 {* ======== mbRelatedCategories ======== *}
             {elseif $id=="mbRelatedCategories"}
 <dt id="tab-{$id}"><a id="link-{$id}">
-    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}svg/core/actions/projects?color=fff">
+{*    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}svg/core/actions/projects?color=fff"> *}
+    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}projects.svg">
     <span class="mb-label">{'Related albums'|@translate}</span>
 </a></dt>
 <div class="pointer-{$id}"></div>
@@ -299,7 +300,8 @@
 {if isset($blocks.mbSpecials->data.favorites)}
 <dl class="horizontal-menu">
     <dt><a href="{$blocks.mbSpecials->data.favorites.URL}" title="{$blocks.mbSpecials->data.favorites.TITLE}">
-        <img class="nc-icon-favorites nc-icon-mb" src="{$icons_url}svg/core/actions/star-dark?color=fff">
+{*        <img class="nc-icon-favorites nc-icon-mb" src="{$icons_url}svg/core/actions/star-dark?color=fff"> *}
+        <img class="nc-icon-favorites nc-icon-mb" src="{$icons_url}star-dark.svg">
         <span class="mb-label">{'Favorites'|@translate}</span>
     </a></dt>
     <div class="pointer{if $page_section=='favorites'} is-page{/if}"></div>
@@ -309,7 +311,8 @@
 {if $link.NAME == l10n('Edit photos')}
 <dl class="horizontal-menu">
     <dt><a href="{$link.URL}" title="{$link.TITLE}">
-        <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}svg/core/actions/rename?color=fff">
+{*        <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}svg/core/actions/rename?color=fff"> *}
+        <img class="nc-icon-edit nc-icon-mb" src="{$icons_url}rename.svg">
         <span class="mb-label">{$link.NAME}</span>
     </a></dt>   
     <div class="pointer{if $page_section=='edit_photos'} is-page{/if}"></div>
@@ -332,7 +335,8 @@
     {if $U_LOGOUT}
     <dt id="tab-{$id}">
         <a id="link-{$id}">
-            <img class="nc-icon-user" src="{$icons_url}svg/core/actions/user?color=ffffff" alt="user">
+{*            <img class="nc-icon-user" src="{$icons_url}svg/core/actions/user?color=ffffff"> *}
+            <img class="nc-icon-user" src="{$icons_url}user.svg">
             <span>{$USERNAME}</span>
         </a>
     </dt>

@@ -1,15 +1,3 @@
-{*
-{strip}{html_style}
-.thumbnailCategory .illustration{ldelim}
-    width: {$derivative_params->max_width()+5}px;
-}
-
-.content .thumbnailCategory .description{ldelim}
-    height: {$derivative_params->max_height()+5}px;
-}
-{/html_style}{/strip}
-*}
-
 {footer_script}
   var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png", max_requests = {$maxRequests};
 {/footer_script}
@@ -36,8 +24,9 @@
                 alt="{$cat.TN_ALT}" title="{$cat.NAME|@replace:'"':' '|@strip_tags:false} - {'display this album'|@translate}">
         </div>
         <div class="description">
-            <a href="{$cat.URL}" title="{$cat.NAME}: {$cat.count_images|@translate_dec:'%d photo':'%d photos'} {$cat.count_categories|@translate_dec:'in %d sub-album':'in %d sub-albums'}{if !empty($cat.icon_ts)}{"\n"}{$cat.icon_ts.TITLE}{/if}">
-                <img class="nc-icon-folder" src="https://box.smartairfilters.com/apps/files/img/app.svg?v=a8813991">
+            <a href="{$cat.URL}" title="{$cat.NAME}: {$cat.count_images|@translate_dec:'%d image':'%d images'} {$cat.count_categories|@translate_dec:'in %d sub-album':'in %d sub-albums'}{if !empty($cat.icon_ts)}{"\n"}{$cat.icon_ts.TITLE}{/if}">
+{*                <img class="nc-icon-folder" src="https://box.smartairfilters.com/apps/files/img/app.svg?v=a8813991"> *}
+                <img class="nc-icon-folder" src="./themes/clouds/icon/nextcloud/folder{if $themeconf.colorscheme=='dark'}-blue{/if}.svg">
                 <h2>
                     {if !empty($cat.icon_ts)}
                     <span class="pwg-icon-recent"></span>
@@ -45,7 +34,8 @@
                     {$cat.NAME}
                 </h2>
                 <p>
-                    {if $cat.count_images}{$cat.count_images|@translate_dec:'%d photo':'%d photos'}{if $cat.nb_categories}, {/if}{/if}
+{*                    {if $cat.count_images}{$cat.count_images|@translate_dec:'%d photo':'%d photos'}{if $cat.nb_categories}, {/if}{/if} *}
+                    {if $cat.count_images}{$cat.count_images|@translate_dec:'%d image':'%d images'}{if $cat.nb_categories}, {/if}{/if}
                     {if $cat.nb_categories}
                     <span>{$cat.nb_categories|@translate_dec:'%d sub-album':'%d sub-albums'}</span>
                     {/if}
