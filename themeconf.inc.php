@@ -184,5 +184,15 @@ function clouds_mood_switch() {
     $template->clear_assign('mood_switch');
 }
 
+// set default thumbnail size; default=square
+add_event_handler('get_index_derivative_params', 'clouds_get_index_photo_derivative_params');
+function clouds_get_index_photo_derivative_params($default) {
+    if (pwg_get_session_var('index_deriv')===null) {
+        $new = @ImageStdParams::get_by_type('square');
+        if ($new) return $new;
+    }
+    return $default;
+}
+
 
 ?>
