@@ -98,7 +98,10 @@ div.thumbHover { background-color: #4d4d4d; }
 
 .thumbHoverIcon { background: rgba(92,92,92,0.8); }
 
-.thumbHoverIcon .pwg-icon::before { opacity: 1 !important; }
+.thumbHoverIcon .pwg-icon::before {
+    color: white !important;
+    opacity: 1 !important;
+}
 
 .pwg-state-disabled .pwg-icon:hover:before { opacity: 0.6; }
 
