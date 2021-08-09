@@ -94,6 +94,7 @@ TD.calDayCellFull, TD.calDayCellEmpty { border: 1px solid #4d4d4d; }
 
 /* picture */
 #imageInfos { background-color: #2F3032; }
+.imageInfoTable h3 { color: #666; }
 
 div.thumbHover { background-color: #4d4d4d; }
 

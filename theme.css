@@ -680,6 +680,11 @@ div.thumbHover {
 .imageInfo#Categories li { list-style: none; }
 .imageInfoTable ul { padding: 0; }
 
+.imageInfoTable h3 {
+    margin: 1em 0 0;
+    color: #999;
+}
+
 #linkPrev, #linkNext { float:none; margin:0; }
 
 .imageInfo dt {
