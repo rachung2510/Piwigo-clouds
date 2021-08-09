@@ -6,7 +6,7 @@ body {
 
 a { color: #d8d8d8; }
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="button"], INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="password"], INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
     background-color: #616364;
     color: #d8d8d8;
     border: 1px solid transparent;
@@ -74,6 +74,13 @@ div[class^="pointer"]::before { border-bottom-color: #181818; }
 .switchBox a { color: #d8d8d8 !important; }
 .switchBoxTitle { border-bottom: 1px solid #444 !important; }
 
+.pwg-icon:hover:before, a.pwg-state-default:hover > span::before { color: #d8d8d8 !important; }
+
+@media screen and (max-width: 480px) {
+    .categoryActions { background-color: #333; }
+    .categoryActions a:hover { color: #666; }
+}
+
 /* calendar */
 .calItem { border: 1px solid #4d4d4d; }
 .calMonth thead { color: #d8d8d8; }
@@ -94,6 +101,13 @@ div.thumbHover { background-color: #4d4d4d; }
 .thumbHoverIcon .pwg-icon::before { opacity: 1 !important; }
 
 .pwg-state-disabled .pwg-icon:hover:before { opacity: 0.6; }
+
+@media screen and (max-width: 540px) {
+    #imageToolBar .actionButtons {
+        background-color:  #333;
+        border: none;
+    }
+}
 
 /* slideshow */
 /* identification login */

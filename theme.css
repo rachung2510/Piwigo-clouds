@@ -26,7 +26,7 @@ a:hover {
 }
 
 #the_page {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -49,7 +49,7 @@ div#content {
     line-height: 26px;
 }
 
-INPUT[type="text"], INPUT[type="password"], INPUT[type="button"], INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
+INPUT[type="text"], INPUT[type="password"], INPUT[type="submit"], INPUT[type="reset"], INPUT[type="file"] {
     background-color: white;
     color: #222;
     border: 1px solid #dbdbdb;
@@ -490,7 +490,7 @@ li#languageSwitch {
         line-height: 26px;
     }
 
-    .pwg-icon:hover:before { color: #333 !important; }
+    span:not(.pwg-state-disabled) .pwg-icon:hover:before { color: #333 !important; }
     .categoryActions a:hover { color: #333; }
 
     .categoryActions .pwg-button {
@@ -604,7 +604,10 @@ ul#uploader_filelist { padding: 0; }
     justify-content: flex-start !important;
 }
 
-#theImage { margin: 1em 0; }
+#theImage {
+    margin: 1em 0;
+    overflow: auto;
+}
 
 #imageInfos {
     display: flex;
@@ -717,11 +720,12 @@ div.thumbHover {
         top: 26px;
         background-color: #ececec;
         border: 1px solid #dbdbdb;
-        padding: calc(1em - 4px) 1em;
+        padding: .5em 1em .5em .5em;
+/*        padding: calc(1em - 4px) 1em;*/
     }
     #imageToolBar .actionButtons .pwg-button {
         width: auto;
-        margin: 2px 0;
+        margin: 4px 0;
         display: flex;
         align-items: center;
     }
@@ -1374,7 +1378,7 @@ fieldset.tagLetter {
     font-size: 1.2em;
 }
 
-.pwg-icon:hover:before {
+span:not(.pwg-state-disabled) .pwg-icon:hover:before {
     color: #999;
 }
 /*
@@ -1443,7 +1447,7 @@ fieldset.tagLetter {
 .pwg-icon-moon:hover::before { content: "\f186"; }
 
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 800px) {
 
 /* page */
 html, body { width: 100%; }
