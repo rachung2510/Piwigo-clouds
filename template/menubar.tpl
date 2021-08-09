@@ -64,7 +64,7 @@
 
     $(window).resize(function() {
         $("#menu").removeClass("show"); // reset menu to default hidden
-        if ($(window).width() > 680) {
+        if ($(window).width() > 800) {
             $(".mb-label").each(function() { $(this).hide(); }); // hide labels
             $("#menu").css('max-height', '0px');
         } else {
@@ -107,7 +107,7 @@
      */
     function toggleLabels(action, selected) {
         // ignore for mobile screens
-        if ($(window).width() <= 680) 
+        if ($(window).width() <= 800) 
             return;
         
         if (action == 1) { // hover in
@@ -126,7 +126,7 @@
      * @param action 1=show, 0=hide
      */
     function toggleMenu(action) {
-        if ($(window).width() > 680) return;
+        if ($(window).width() > 800) return;
         if ($("#menu").hasClass("show")) {
             $("#menu").css('max-height', '0px');
             $("#menu").removeClass("show");

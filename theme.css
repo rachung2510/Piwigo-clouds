@@ -1506,7 +1506,7 @@ body {
     width: 100%;
     background: #4264bd;
 /*    transform: translateY(-999px); */
-/*    transition: max-height 100ms ease-in-out; */
+    transition: max-height 300ms ease-in-out;
     max-height: 0px;
     overflow-y: hidden;
     justify-content: flex-end;
