@@ -126,6 +126,8 @@ img[class^='nc-icon'] {
 /*    vertical-align: middle !important; */
 }
 
+.loader { z-index: 2; }
+
 /* page banner */
 #theHeader { display: none; }
 
