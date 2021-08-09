@@ -327,10 +327,9 @@ function setPrivacyLevel(id, level){
 	</div>
 {/if}
 {/strip}
-</dl>
+{* </dl> *}
 
 {if isset($metadata)}
-<dl id="Metadata" class="imageInfoTable">
 {foreach from=$metadata item=meta}
 	<h3>{$meta.TITLE}</h3>
 	{foreach from=$meta.lines item=value key=label}
@@ -340,8 +339,9 @@ function setPrivacyLevel(id, level){
 		</div>
 	{/foreach}
 {/foreach}
-</dl>
 {/if}
+</dl>
+
 
 {if $DISPLAY_NAV_THUMB}
 	<div class="navThumbsNext">

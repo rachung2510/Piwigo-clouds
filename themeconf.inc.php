@@ -1,12 +1,11 @@
 <?php
 
 /*
-Theme Name: My greenery
-Version: 0.1
-Description: My very first theme
-Theme URI: http://piwigo.org/ext/extension_view.php?eid=347
-Author: John Do
-Author URI: http://piwigo.org/
+Theme Name: Clouds
+Version: 1.0
+Description: Piwigo theme for Smart Air that closely resembles Box
+Author: rachung
+Author URI: https://github.com/rachung2510
 */
 
 define('CLOUDS_PATH' , PHPWG_THEMES_PATH.basename(dirname(__FILE__)).'/');
@@ -145,7 +144,7 @@ if (isset($conf['clouds_theme'])) {
 
 // update themeconf colorscheme
 if (!is_a_guest() and !is_generic()) {
-    $user_id = $user['user_id'];
+    $user_id = $user['id'];
     $user_mood = isset($conf['clouds_theme']['dark'][$user_id]) ? 'dark' : 'clear'; // default to clear
     if ($user_mood == 'dark') {
         $themeconf['colorscheme'] = 'dark';
@@ -158,7 +157,7 @@ add_event_handler('loc_end_picture', 'clouds_mood_switch');
 function clouds_mood_switch() {
     global $conf, $user, $template;
 
-    $user_id = $user['user_id'];
+    $user_id = $user['id'];
     if (isset($conf['clouds_theme']) && isset($conf['clouds_theme']['dark'])) {
         $mood = (isset($conf['clouds_theme']['dark'][$user_id])) ? 'dark' : 'clear'; // default to light
     } else {

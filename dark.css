@@ -21,7 +21,8 @@ INPUT:focus, SELECT:focus, TEXTAREA:focus {
 SELECT {
     background-color: #616364;
     color: #d8d8d8;
-    border: 1px solid #999;
+    border: 1px solid transparent;
+/*    border: 1px solid #999;*/
 }
 
 TEXTAREA {
@@ -93,12 +94,16 @@ TD.calDayCellFull, TD.calDayCellEmpty { border: 1px solid #4d4d4d; }
 
 /* picture */
 #imageInfos { background-color: #2F3032; }
+.imageInfoTable h3 { color: #666; }
 
 div.thumbHover { background-color: #4d4d4d; }
 
 .thumbHoverIcon { background: rgba(92,92,92,0.8); }
 
-.thumbHoverIcon .pwg-icon::before { opacity: 1 !important; }
+.thumbHoverIcon .pwg-icon::before {
+    color: white !important;
+    opacity: 1 !important;
+}
 
 .pwg-state-disabled .pwg-icon:hover:before { opacity: 0.6; }
 

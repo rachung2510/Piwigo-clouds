@@ -126,6 +126,8 @@ img[class^='nc-icon'] {
 /*    vertical-align: middle !important; */
 }
 
+.loader { z-index: 2; }
+
 /* page banner */
 #theHeader { display: none; }
 
@@ -677,6 +679,11 @@ div.thumbHover {
 }
 .imageInfo#Categories li { list-style: none; }
 .imageInfoTable ul { padding: 0; }
+
+.imageInfoTable h3 {
+    margin: 1em 0 0;
+    color: #999;
+}
 
 #linkPrev, #linkNext { float:none; margin:0; }
 
@@ -1499,7 +1506,7 @@ body {
     width: 100%;
     background: #4264bd;
 /*    transform: translateY(-999px); */
-/*    transition: max-height 100ms ease-in-out; */
+    transition: max-height 300ms ease-in-out;
     max-height: 0px;
     overflow-y: hidden;
     justify-content: flex-end;
