@@ -1171,7 +1171,7 @@ fieldset.tagLetter {
     background-color: #dbdbdb; 
 }
 
-#oauth { margin: 1em auto 0 !important; }
+#profile #oauth { margin: 1em auto 0 !important; }
 
 @media screen and (max-width: 580px) {
     .properties li, .properties span.property { width: 100%; }
