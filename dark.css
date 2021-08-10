@@ -92,6 +92,12 @@ TD.calDayCellFull, TD.calDayCellEmpty { border: 1px solid #4d4d4d; }
 /* uploadForm */
 #photosAddContent .showFieldset a { color: #27bcff; }
 
+#photosAddContent a { color: #d8d8d8; }
+#photosAddContent a:hover {
+  color: #27bcff;
+  text-decoration: none;
+}
+
 /* picture */
 #imageInfos { background-color: #2F3032; }
 .imageInfoTable h3 { color: #666; }

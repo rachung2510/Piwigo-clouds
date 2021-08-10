@@ -578,7 +578,10 @@ ul#uploader_filelist { padding: 0; }
 
 #uploadForm #startUpload { margin: 5px 0 40px 15px !important; }
 
-.big-progressbar { background-color: #666; }
+.big-progressbar { background-color: #dbdbdb !important; }
+
+#photosAddContent a { color: #4264bd; }
+#photosAddContent a:hover { text-decoration: underline; }
 
 
 /* picture */
@@ -828,6 +831,7 @@ fieldset#oauth_wrap { outline: none; }
     color: #333;
     background: #cfebff;
 }
+#photosAddContent .infos { margin: 0; }
 
 .errors {
     color: #f51400;
@@ -1276,7 +1280,7 @@ fieldset.tagLetter {
 }
 #batchManagerGlobal fieldset.edit-photos-filter { margin: 0 !important; }
 
-#batchManagerGlobal legend { margin-bottom: 1em; }
+/* #batchManagerGlobal legend { margin-bottom: 1em; } */
 #batchManagerGlobal #action legend { margin-bottom: 0; }
 #permitAction { margin-top : 1em; }
 .permitActionListButton, .permitActionItem { position: relative; }
@@ -1294,6 +1298,7 @@ fieldset.tagLetter {
     background-color: #ececec !important;
 }
 
+#batchManagerGlobal #checkActions { margin: 5px 0 20px !important; }
 #batchManagerGlobal #checkActions a { display: inline-block; }
 
 #applyFilter, .addFilter-button {
@@ -1301,6 +1306,7 @@ fieldset.tagLetter {
     text-align: left;
 }
 
+.filterBlock { margin-top: 5px; }
 #addFilter .icon-plus:before, .icon-arrows-cw { margin-right: 8px !important; }
 
 #action_download label { white-space: nowrap; }
