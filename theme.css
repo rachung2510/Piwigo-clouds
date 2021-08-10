@@ -578,6 +578,8 @@ ul#uploader_filelist { padding: 0; }
 
 #uploadForm #startUpload { margin: 5px 0 40px 15px !important; }
 
+.big-progressbar { background-color: #666; }
+
 
 /* picture */
 /*#the_page { overflow: auto; }*/
