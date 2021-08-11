@@ -13,7 +13,8 @@
     <li>
         <div class="illustration">
             <img {if $derivative->is_cached()}
-                     {if strtolower(substr($cat.representative.file,-4))=='.svg'}
+{assign var="ext" value="{{$cat.representative.path|pathinfo:PATHINFO_EXTENSION}|strtolower}"}
+                     {if $ext=='svg' || $ext=='webp'}
                      src="{$cat.representative.path}"
                      {else}
                      src="{$derivative->get_url()}"

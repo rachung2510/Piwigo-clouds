@@ -36,14 +36,14 @@
 {if !$derivative->is_cached()}
 {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
 {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
-{*{assign var=ext value=strtolower(substr($thumbnail.file, -4))}*}
 {/if}
-{assign var="ext" value="{{$thumbnail.file|substr:-4}|strtolower}"}
+{* {assign var="ext" value="{{$thumbnail.file|substr:-4}|strtolower}"} *}
+{assign var="ext" value="{{$thumbnail.file|pathinfo:PATHINFO_EXTENSION}|strtolower}"}
     <li>
         <div class="thumbImg">
             <img class="thumbnail" 
                 {if $derivative->is_cached()}
-                    {if $ext == '.svg' || $ext == '.gif'}
+                    {if $ext=='svg' || $ext=='gif' || $ext=='webp'}
                     src="{$thumbnail.path}" {if $derivative_params->type=='square'}style="object-fit: cover;"{/if}
                     {else}
                     src="{$derivative->get_url()}"
