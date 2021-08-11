@@ -91,15 +91,18 @@ function extended_desc_parse_lang_tag($params, $smarty) {
 }
 
 // render image in single page
-add_event_handler('render_element_content', 'render_svg', 40, 2 );
-function render_svg($content, $picture)
+// accepted formats: svg, gif, webp
+add_event_handler('render_element_content', 'render_img', 40, 2 );
+function render_img($content, $picture)
 {
     global $template, $picture, $page, $conf, $user, $refresh;
 
     $img = $picture['current'];
     $name = substr($img['file'], 0, strrpos($img['file'], '.'));
     $ext = substr($img['file'], strrpos($img['file'], '.')+1); // file extension
-    if ($ext == 'svg' or $ext == 'gif') {
+    $allowed_exts = array('svg','gif','webp');
+
+    if (in_array($ext, $allowed_exts)) {
         $path = $picture['current']['path'];
 
         $template->assign(
@@ -200,5 +203,29 @@ function clouds_get_index_photo_derivative_params($default) {
     return $default;
 }
 
+// lazy rendering for "Edit photos" section of Community plugin
+// acceptable formats: svg, gif, webp
+add_event_handler('loc_end_section_init','edit_photos_prefilter'); // $page is fully defined
+function edit_photos_prefilter() {
+    global $page, $template;
+    if (isset($page['section']) && $page['section'] == 'edit_photos') {
+        $template->set_prefilter('edit_photos', 'lazy_rendering');
+    }
+}
 
+function lazy_rendering($content, &$smarty) {
+    // assign template variable $ext
+    $search[0] = '<li{if $isSelected} class="thumbSelected"{/if}>';
+    $replace[0] = '{assign var="ext" value="{{$thumbnail.path|pathinfo:PATHINFO_EXTENSION}|strtolower}"}'.$search[0];
+
+    // lazy rendering of relevant file extensions
+    $search[1] = 'src="{$thumbnail.thumb->get_url()}"';
+    $replace[1] = 'src="{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'}{$thumbnail.path}{else}{$thumbnail.thumb->get_url()}{/if}"';
+
+    // format style of lazy renders
+    $search[2] = '{$thumbnail.thumb->get_size_htm()}';
+    $replace[2] = $search[2].'{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'} style="object-fit:cover"{/if}';
+
+    return str_replace($search, $replace, $content);
+}
 ?>
