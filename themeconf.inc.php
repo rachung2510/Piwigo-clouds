@@ -155,11 +155,8 @@ if (!is_a_guest() and !is_generic()) {
 }
 
 // template variables for mood switch button
-<<<<<<< HEAD
 // only initialise for registered users
-=======
 // only initialise mood switch for registered users
->>>>>>> 9aug
 if (!is_a_guest() and !is_generic()) {
     add_event_handler('loc_end_index', 'clouds_mood_switch');
     add_event_handler('loc_end_picture', 'clouds_mood_switch');
