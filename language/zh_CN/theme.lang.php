@@ -23,6 +23,7 @@
 
 $lang['%d image'] = '%d 张图片';
 $lang['%d images'] = '%d 张图片';
+$lang['%d sub-album'] = '%d个子相册';
 $lang['More'] = '更多';
 $lang['Switch to dark mode'] = '换去暗模式';
 $lang['Switch to clear mode'] = '换去亮模式';
