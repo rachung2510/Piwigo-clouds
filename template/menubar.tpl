@@ -237,7 +237,7 @@
         {/foreach}
     </div>
 </dd>
-{/if}
+{/if} {* is_related *}
 
 {* ======== mbSpecials, mbMenu ======== *}
             {elseif $id=="mbSpecials"}

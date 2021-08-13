@@ -124,6 +124,34 @@ function render_img($content, $picture)
     }
 }
 
+// lazy rendering for "Edit photos" section of Community plugin
+// acceptable formats: svg, gif, webp
+add_event_handler('loc_end_section_init','edit_photos_prefilter'); // $page is fully defined
+function edit_photos_prefilter() {
+    global $page, $template;
+    if (isset($page['section']) && $page['section'] == 'edit_photos') {
+        $template->set_prefilter('edit_photos', 'lazy_rendering');
+    }
+}
+
+function lazy_rendering($content, &$smarty) {
+    // assign template variable $ext
+    $search[0] = '<li{if $isSelected} class="thumbSelected"{/if}>';
+    $replace[0] = '{assign var="ext" value="{{$thumbnail.path|pathinfo:PATHINFO_EXTENSION}|strtolower}"}'.$search[0];
+
+    // lazy rendering of relevant file extensions
+    $search[1] = 'src="{$thumbnail.thumb->get_url()}"';
+    $replace[1] = 'src="{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'}{$thumbnail.path}{else}{$thumbnail.thumb->get_url()}{/if}"';
+
+    // format style of lazy renders
+    $search[2] = '{$thumbnail.thumb->get_size_htm()}';
+    $replace[2] = $search[2].'{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'} style="object-fit:cover"{/if}';
+
+    return str_replace($search, $replace, $content);
+}
+
+
+/* Switch between different moods */
 // update clear or dark mood
 global $conf, $user;
 if (isset($conf['clouds_theme'])) {
@@ -192,6 +220,7 @@ function clouds_mood_switch() {
     $template->clear_assign('mood_switch');
 }
 
+/* Thumbnail sizes */
 // set default thumbnail size; default=square
 add_event_handler('get_index_derivative_params', 'clouds_get_index_photo_derivative_params');
 function clouds_get_index_photo_derivative_params($default) {
@@ -202,29 +231,4 @@ function clouds_get_index_photo_derivative_params($default) {
     return $default;
 }
 
-// lazy rendering for "Edit photos" section of Community plugin
-// acceptable formats: svg, gif, webp
-add_event_handler('loc_end_section_init','edit_photos_prefilter'); // $page is fully defined
-function edit_photos_prefilter() {
-    global $page, $template;
-    if (isset($page['section']) && $page['section'] == 'edit_photos') {
-        $template->set_prefilter('edit_photos', 'lazy_rendering');
-    }
-}
-
-function lazy_rendering($content, &$smarty) {
-    // assign template variable $ext
-    $search[0] = '<li{if $isSelected} class="thumbSelected"{/if}>';
-    $replace[0] = '{assign var="ext" value="{{$thumbnail.path|pathinfo:PATHINFO_EXTENSION}|strtolower}"}'.$search[0];
-
-    // lazy rendering of relevant file extensions
-    $search[1] = 'src="{$thumbnail.thumb->get_url()}"';
-    $replace[1] = 'src="{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'}{$thumbnail.path}{else}{$thumbnail.thumb->get_url()}{/if}"';
-
-    // format style of lazy renders
-    $search[2] = '{$thumbnail.thumb->get_size_htm()}';
-    $replace[2] = $search[2].'{if $ext==\'svg\' || $ext==\'gif\' || $ext==\'webp\'} style="object-fit:cover"{/if}';
-
-    return str_replace($search, $replace, $content);
-}
 ?>
