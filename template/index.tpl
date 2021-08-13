@@ -15,23 +15,19 @@
     });
 
     // user interaction with actions
-    $("#sortOrderLink").click(function(e) { 
-        e.preventDefault();
-        if (!$(this).hasClass("active")) hideAllDropdowns(); // hide other dropdowns
-        toggleActive($(this));
-    });
-    $("#derivativeSwitchLink").click(function(e) { 
-        e.preventDefault();
-        if (!$(this).hasClass("active")) hideAllDropdowns(); // hide other dropdowns
-        toggleActive($(this)); 
-    });
-    $("#languageSwitchLink").click(function(e) { 
-        e.stopImmediatePropagation(); 
-        hideAllDropdowns("#languageSwitchBox"); // hide all other dropdowns
+    $(".pwg-button").each(function() {
+        $(this).click(function(e) {
+            if ($(this).is("#sortOrderLink") || $(this).is("#derivativeSwitchLink")) {
+                e.preventDefault();
+                hideAllDropdowns($(this).is("#sortOrderLink") ? "#sortOrderBox" : "#derivativeSwitchBox"); // hide other dropdowns
+                toggleActive($(this));
+            } else if ($(this).is("#languageSwitchLink") || $(this).is(".addCollection")) {
+                hideAllDropdowns($(this).is("#languageSwitchLink") ? "#languageSwitchBox" : "#collectionsDropdown"); // hide other dropdowns                
+            }
+        });
     });
 
     // window activity
-    $(window).click( function() { hideAllDropdowns(); } ); // reset all dropdowns and states when user clicks anywhere on the window
     $(window).resize ( function() {
         if ($(window).width() <= 480 ) {
             $(".categoryActions").hide(); // don't expand actions menu

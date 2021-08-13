@@ -523,7 +523,7 @@ li#languageSwitch {
         width: unset !important;
     }
 
-    .switchBox:not(#calendarViewSwitchBox), #languageSwitchBox {
+    .switchBox:not(#calendarViewSwitchBox, #collectionsDropdown), #languageSwitchBox {
         position: static !important;
     }
     .switchBoxTitle { display: none; }
@@ -1361,6 +1361,11 @@ fieldset.tagLetter {
     }
 
 }
+
+/* user collections */
+#theCollectionPage #content p { margin: 1em 0 !important; }
+#menubar #mbUserCollection dd > a { background-color: unset; }
+#menubar #mbUserCollection dd > a:hover { color: #999; }
 
 /* footer */
 #copyright {

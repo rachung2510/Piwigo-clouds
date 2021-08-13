@@ -1,16 +1,22 @@
 {footer_script require='jquery'}{literal}
     var selected = false;
     var blocks = {/literal}{$blocks|@json_encode}{literal};
+    var tab={}; var link={}; var pointer={}; var dropdown={};
 
     if (blocks !== null) {
-            jQuery.each(blocks, function(id, block) {
-            $("#tab-"+id).click(function(e){
+        jQuery.each(blocks, function(id, block) {
+            $menu_block = $("#"+id);
+            tab[id] = $menu_block.find("dt");
+            pointer[id] = $menu_block.find("div[class^='pointer']");
+            dropdown[id] = $menu_block.find("dd");
+
+            tab[id].click(function(e){
                 e.stopPropagation();
                 hideAllDropdown(except=id);
-                if ($("#dropdown-"+id).is(":hidden")) { // show dropdown
-                    $("#dropdown-"+id).show();
-                    $(".pointer-"+id).show();
-                    $("#link-"+id).removeClass("selected").addClass("selected");
+                if (dropdown[id].is(":hidden")) { // show dropdown
+                    dropdown[id].show();
+                    pointer[id].show();
+                    link[id].removeClass("selected").addClass("selected");
                     selected = true;
 
                     // disabled show/hide labels for identification
@@ -22,25 +28,17 @@
                     $("#menu").css('justify-content', 'flex-start');
 
                 } else { // hide dropdown
-                    if (!($(".pointer-"+id).hasClass("is-page")))
-                        $(".pointer-"+id).hide();
-                    $("#dropdown-"+id).hide();
-                    $("#link-"+id).removeClass("selected");
+                    if (!(pointer[id].hasClass("is-page")))
+                        pointer[id].hide();
+                    dropdown[id].hide();
+                    link[id].removeClass("selected");
                     selected = false;
 
                     // shrink menu; reset menu to expand end first
-                    $("#menu").css('max-height', '380px');
+                    $("#menu").css('max-height', '500px');
                     $("#menu").css('justify-content', 'flex-end');
                 }
-
-                // wrap text only when text exceeds certain length
-                $("#dropdown-"+id).find("a").each(function() {
-                    if ($(this).text().length > 50) { // roughly 50 chars
-                        $(this).css('white-space', 'normal');
-                    }
-                });
             });
-
         });
     }
 
@@ -85,7 +83,7 @@
                         if (!($(".pointer-"+id).hasClass("is-page")))
                             $(".pointer-"+id).hide();
                         $("#dropdown-"+id).hide();
-                        $("#link-"+id).removeClass("selected");
+                        link[id].removeClass("selected");
                     }
                 }
             });
@@ -93,9 +91,9 @@
 
         // reset max-height to default expanded state
         // reset menu to expand end first
-        // only if menu was already expanded (max-height already 380px)
+        // only if menu was already expanded (max-height already 500px)
         if ($("#menu").css('max-height') != '0px') {
-            $("#menu").css('max-height', '380px');
+            $("#menu").css('max-height', '500px');
             $("#menu").css('justify-content', 'flex-end'); // if dropdown showing on click
         }
     }
@@ -131,7 +129,7 @@
             $("#menu").css('max-height', '0px');
             $("#menu").removeClass("show");
         } else {
-            $("#menu").css('max-height', '380px');
+            $("#menu").css('max-height', '500px');
             $("#menu").addClass("show");
         }
     }
@@ -170,13 +168,13 @@
 
 {* ======== mbLinks ======== *}
             {if $id=="mbLinks"}
-<dt id="tab-{$id}"><a id="link-{$id}">
+<dt><a>
 {*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/public?color=fff"> *}
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}public.svg">
     <span class="mb-label">{'Links'|@translate}</span>
 </a></dt>
-<div class="pointer-{$id}"></div>
-<dd id="dropdown-{$id}">
+<div class="pointer"></div>
+<dd>
     {strip}{foreach from=$block->data item=link}
     <a href="{$link.URL}" class="external"{if isset($link.new_window)} onclick="window.open(this.href, '{$link.new_window.NAME}','{$link.new_window.FEATURES}'); return false;"{/if}>
     {$link.LABEL}
@@ -186,15 +184,15 @@
 
 {* ======== mbCategories ======== *}
             {elseif $id=="mbCategories"}
-<dt id="tab-{$id}">
-    <a id="link-{$id}">
+<dt>
+    <a>
 {*        <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}apps/deck/img/deck.svg?v=a8813991"> *}
         <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}deck.svg">
         <span class="mb-label">{'Albums'|@translate}</span>
     </a>
 </dt>
-<div class="pointer-{$id}{if $page_section=='categories' && !$is_homepage} is-page{/if}"></div>
-<dd id="dropdown-{$id}">
+<div class="pointer{if $page_section=='categories' && !$is_homepage} is-page{/if}"></div>
+<dd>
 <ul>
 {foreach from=$block->data.MENU_CATEGORIES item=cat}
     <li {if $cat.SELECTED}class="selected"{/if}">
@@ -217,14 +215,14 @@
 
 {* ======== mbTags ======== *}
             {elseif $id=="mbTags"}
-<dt id="tab-{$id}"><a id="link-{$id}" {if !$IS_RELATED}href="{$blocks.mbMenu->data.tags.URL}" title="{$blocks.mbMenu->data.tags.TITLE}"{/if}>
+<dt><a {if !$IS_RELATED}href="{$blocks.mbMenu->data.tags.URL}" title="{$blocks.mbMenu->data.tags.TITLE}"{/if}>
 {*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff"> *}
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}tag.svg">
     <span class="mb-label">{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</span>
 </a></dt>
-<div class="pointer-{$id}{if $page_section=='tags' || $php_url=='tags.php'} is-page{/if}"></div>
+<div class="pointer{if $page_section=='tags' || $php_url=='tags.php'} is-page{/if}"></div>
 {if $IS_RELATED}
-<dd id="dropdown-{$id}">
+<dd>
     <div id="menuTagCloud">
         {foreach from=$block->data item=tag}{strip}
             <a class="tagLevel{$tag.level}" href=
@@ -241,13 +239,13 @@
 
 {* ======== mbSpecials, mbMenu ======== *}
             {elseif $id=="mbSpecials"}
-<dt id="tab-{$id}"><a id="link-{$id}">
+<dt><a>
 {*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/more?color=fff"> *}
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}more.svg">
     <span class="mb-label">{'More'|@translate}</span>
 </a></dt>
-<div class="pointer-{$id}"></div>
-<dd id="dropdown-{$id}">
+<div class="pointer"></div>
+<dd>
     {strip}
         {if isset($blocks.mbMenu)}
         {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
@@ -265,13 +263,13 @@
 
 {* ======== mbRelatedCategories ======== *}
             {elseif $id=="mbRelatedCategories"}
-<dt id="tab-{$id}"><a id="link-{$id}">
+<dt><a>
 {*    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}svg/core/actions/projects?color=fff"> *}
     <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}projects.svg">
     <span class="mb-label">{'Related albums'|@translate}</span>
 </a></dt>
-<div class="pointer-{$id}"></div>
-<dd id="dropdown-{$id}">
+<div class="pointer"></div>
+<dd>
     <ul>
     {foreach from=$block->data.MENU_CATEGORIES item=cat}
     <li>
@@ -292,7 +290,45 @@
     <ul>
 </dd>
 
+{* ======== mbUserCollection ======== *}
+            {elseif $id=="mbUserCollection"}
+<dt><a>
+    <img class="nc-icon-related-album nc-icon-mb" src="{$icons_url}bundles.svg">
+    <span class="mb-label">{'Collections'|@translate}</span>
+</a></dt>
+<div class="pointer"></div>
+<dd>
+  {strip}
+    {if $block->data.NB_COL == 0}
+      {'You have no collection'|translate}
+    {else}
+      <a href="{$block->data.U_LIST}">{$pwg->l10n_dec('You have %d collection', 'You have %d collections', $block->data.NB_COL)}</a>
+    {/if}
+  {/strip}
+  {if $block->data.collections}
+  <ul>
+        {foreach from=$block->data.collections item=col}{strip}
+        <li>
+      <a href="{$col.u_edit}">{$col.name}
+      <span class="menuInfoCat badge">{$col.nb_images}</span>
+      </a>
+    </li>
+        {/strip}{/foreach}
+    {if isset($block->data.MORE)}<li class="menuInfoCat"><a href="{$block->data.U_LIST}">{'%d more...'|translate:$block->data.MORE}</a></li>{/if}
+    </ul>
+  {/if}
+</dd>
+
 {* ======== END mb ======== *}
+
+{* ======== Plugins mb ======== *}
+            {else}
+{if not empty($block->template)}
+{include file=$block->template }
+:{else}
+{$block->raw_content}
+{/if}
+
             {/if} {* $id *}
         </dl>
         {/if} {* not mbMenu and mbIdentification *}
@@ -335,8 +371,8 @@
 {* ======== Identification ======== *}
 <dl id="mbIdentification">
     {if $U_LOGOUT}
-    <dt id="tab-{$id}">
-        <a id="link-{$id}">
+    <dt id="tab-mbIdentification">
+        <a id="link-mbIdentification">
 {*            <img class="nc-icon-user" src="{$icons_url}svg/core/actions/user?color=ffffff"> *}
             <img class="nc-icon-user" src="{$icons_url}user.svg">
             <span>{$USERNAME}</span>
@@ -348,8 +384,8 @@
 {*            {'Login'|@translate} *}
     </dt>
     {/if}
-    <div class="pointer-{$id}"></div>
-    <dd id="dropdown-{$id}">
+    <div class="pointer-mbIdentification"></div>
+    <dd id="dropdown-mbIdentification">
     {strip}
         {if isset($USERNAME)}
         <p>{'Hello'|@translate} {$USERNAME} !</p>
