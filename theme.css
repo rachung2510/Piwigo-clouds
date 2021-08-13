@@ -203,8 +203,10 @@ div[class^="pointer"] {
     line-height: 0;
 }
 
-div[class^="pointer"].is-page { 
-    display: block; 
+@media screen and (min-width: 800px) {
+    div[class^="pointer"].is-page { 
+        display: block; 
+    }
 }
 
 div[class^="pointer"].is-page::before { border-width: 10px; }
@@ -432,6 +434,7 @@ a#link-mbIdentification { flex-direction: row !important; }
     text-align: left;
     line-height: normal;
 }
+#theTagsPage .pwg-button-text, #theSearchPage .pwg-button-text { margin-left: 0;}
 
 [class*="langflag-"] { margin-right: 0 !important; }
 
@@ -474,7 +477,7 @@ li#languageSwitch {
 @media screen and (max-width: 480px) {
     .pwg-icon-menu { display: inline-flex !important; }
 
-    .categoryActions {
+    body:not(#theTagsPage, #theSearchPage) .categoryActions { 
         display: none;
         flex-direction: column;
         align-items: stretch;
@@ -537,7 +540,7 @@ li#languageSwitch {
 .calMonthWrapper {
     width: 100%;
     overflow: auto;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
 table.calMonth {
@@ -583,6 +586,25 @@ ul#uploader_filelist { padding: 0; }
 #photosAddContent a { color: #4264bd; }
 #photosAddContent a:hover { text-decoration: underline; }
 
+.selectAlbum select#albumSelect { max-width: calc(100vw - 32px); }
+
+#photoProperties textarea#description, #photoProperties input  {
+    max-width: calc(100vw - 32px);
+    box-sizing: border-box;
+}
+
+.plupload_content {
+    max-width: calc(100vw - 32px);
+    overflow-x: auto;
+}
+
+.plupload_filelist_header, #uploadForm .plupload_scroll .plupload_filelist, .plupload_filelist_footer {
+    min-width: 570px;
+    box-sizing: border-box !important;
+}
+#uploadForm .plupload_scroll .plupload_filelist { overflow-x: hidden; }
+.plupload_filelist li { box-sizing: border-box; }
+.plupload_filelist_footer { height: 38px !important; }
 
 /* picture */
 /*#the_page { overflow: auto; }*/
@@ -780,7 +802,7 @@ div.thumbHover {
     align-items: center;
 }
 
-#theIdentificationPage p:last-child { margin-bottom: 40px; }
+#theIdentificationPage p:last-child { /* margin-bottom: 40px; */ }
 
 #theIdentificationPage a[title=Register] { margin-right: 1em; }
 
@@ -948,7 +970,7 @@ ul.thumbnailCategories {
 }
 
 /* thumbnails */
-.thumbnails { margin-bottom: 40px; }
+.thumbnails { /* margin-bottom: 40px; */ }
 
 #thumbnails li {
     display: inline-block;
@@ -1086,7 +1108,7 @@ fieldset.tagLetter {
 .filter ul li a:hover { color: #999; }
 
 .filter p { 
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
 .filter p label { display: inline-block; }
@@ -1206,7 +1228,7 @@ fieldset.tagLetter {
 
 #comments {
     padding:0 ;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
 }
 
 .commentElement {
@@ -1272,7 +1294,7 @@ fieldset.tagLetter {
 }
 
 /* edit */
-#batchManagerGlobal { margin-bottom: 40px; }
+#batchManagerGlobal { /* margin-bottom: 40px; */ }
 
 #batchManagerGlobal fieldset {
     outline: none; 
@@ -1287,7 +1309,11 @@ fieldset.tagLetter {
 
 #forbidAction { padding: 25px 0.5em !important; }
 
-#batchManagerGlobal .navigationBar { padding: 0 10px !important; }
+#batchManagerGlobal .navigationBar {
+    padding: 0 10px !important;
+    max-width: calc(100vw - 32px); /* content padding is 16px */
+    overflow-x: auto;
+}
 #batchManagerGlobal .navigationBar, #batchManagerGlobal .navigationBar a, #batchManagerGlobal .navigationBar span:not(.pageNumberSelected) {
     background-color: #ececec !important; 
 }
@@ -1333,12 +1359,7 @@ fieldset.tagLetter {
     .permitActionListButton div::before, div#action_associate::before { display: none; }
 }
 
-@media screen and (max-width: 380px) { 
-    #batchManagerGlobal .navigationBar {
-        max-width: calc(100vw - 32px); /* content padding is 16px */
-        overflow: scroll;
-    }
-
+@media screen and (max-width: 380px) {
     .filterBlock li { 
         width: 100% !important; 
         margin: 0 0 10px !important;
@@ -1376,14 +1397,20 @@ fieldset.tagLetter {
     bottom: 0; */
     width: 100%;
     padding: 15px 0;
+    margin: 0;
     color: #666;
     background-color: #ededed;
-    margin: auto 0 0;
     font-size: 90%;
 }
 
 #copyright a { color: #666; }
 #copyright a:hover { color: #999; }
+
+.spacer {
+    width: 100%;
+    height: 40px;
+    margin-top: auto;
+}
 
 /* icons */
 .pwg-icon { 
@@ -1591,7 +1618,10 @@ div[class^="pointer"]::before {
     transform: none;
 }
 
-div[class^="pointer"].is-page::before { border-width: 5px; }
+div[class^="pointer"].is-page::before { 
+/*    display: none;*/
+    border-width: 5px; 
+}
 
 dl#mbIdentification {
     justify-content: center;

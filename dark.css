@@ -78,7 +78,7 @@ div[class^="pointer"]::before { border-bottom-color: #181818; }
 .pwg-icon:hover:before, a.pwg-state-default:hover > span::before { color: #d8d8d8 !important; }
 
 @media screen and (max-width: 480px) {
-    .categoryActions { background-color: #333; }
+    body:not(#theTagsPage, #theSearchPage) .categoryActions { background-color: #333; }
     .categoryActions a:hover { color: #666; }
 }
 

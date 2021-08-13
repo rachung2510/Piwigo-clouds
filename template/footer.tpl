@@ -1,3 +1,4 @@
+<div class='spacer'>&nbsp;</div>
 <div id="copyright">
   {if isset($debug.TIME)}
     {'Page generated in'|translate} {$debug.TIME} ({$debug.NB_QUERIES} {'SQL queries in'|translate} {$debug.SQL_TIME}) -

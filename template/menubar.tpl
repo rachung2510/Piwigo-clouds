@@ -29,7 +29,7 @@
                     $("#menu").css('justify-content', 'flex-start');
 
                 } else { // hide dropdown
-                    if (!(pointer[id].hasClass("is-page")))
+                    if (!(pointer[id].hasClass("is-page")) || $(window).width()<=800)
                         pointer[id].hide();
                     dropdown[id].hide();
                     link[id].removeClass("selected");
