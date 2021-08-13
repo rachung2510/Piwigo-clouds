@@ -217,12 +217,13 @@
 
 {* ======== mbTags ======== *}
             {elseif $id=="mbTags"}
-<dt id="tab-{$id}"><a id="link-{$id}">
+<dt id="tab-{$id}"><a id="link-{$id}" {if !$IS_RELATED}href="{$blocks.mbMenu->data.tags.URL}" title="{$blocks.mbMenu->data.tags.TITLE}"{/if}>
 {*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff"> *}
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}tag.svg">
     <span class="mb-label">{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</span>
 </a></dt>
-<div class="pointer-{$id}{if $page_section=='tags'} is-page{/if}"></div>
+<div class="pointer-{$id}{if $page_section=='tags' || $php_url=='tags.php'} is-page{/if}"></div>
+{if $IS_RELATED}
 <dd id="dropdown-{$id}">
     <div id="menuTagCloud">
         {foreach from=$block->data item=tag}{strip}
@@ -236,6 +237,7 @@
         {/foreach}
     </div>
 </dd>
+{/if}
 
 {* ======== mbSpecials, mbMenu ======== *}
             {elseif $id=="mbSpecials"}
@@ -247,18 +249,18 @@
 <div class="pointer-{$id}"></div>
 <dd id="dropdown-{$id}">
     {strip}
-        {foreach from=$block->data item=link}{if $link.NAME != l10n('Your favorites')}
-        <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}</a>
-        {/if}{/foreach}
         {if isset($blocks.mbMenu)}
-        <hr>
         {foreach from=$blocks.mbMenu->data item=link}{if is_array($link)}
             {if $link.NAME != l10n('Edit photos')}
                 <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}{if isset($link.COUNTER)} ({$link.COUNTER}){/if}</a>
             {/if}
         {/if}{/foreach}
+        <hr>
         {/if}
-    {/strip}
+        {foreach from=$block->data item=link}{if $link.NAME != l10n('Your favorites')}
+        <a href="{$link.URL}" title="{$link.TITLE}"{if isset($link.REL)} {$link.REL}{/if}>{$link.NAME}</a>
+        {/if}{/foreach}
+   {/strip}
 </dd>
 
 {* ======== mbRelatedCategories ======== *}

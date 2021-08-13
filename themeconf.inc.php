@@ -35,14 +35,16 @@ add_event_handler('loc_begin_password', 'clouds_menubar');
 function clouds_menubar() {
   global $conf, $page, $template;
   $gallery_title = $conf['gallery_title'];
-//  $icons_url = 'https://box.smartairfilters.com/';
   $icons_url = CLOUDS_PATH.'icon/nextcloud/';
+  $php_url = basename($_SERVER["PHP_SELF"]);
+
   $template->set_filename('menubar', CLOUDS_TEMPLATE_PATH.'menubar.tpl');
   $template->assign(array(
     'gallery_title' => $gallery_title,
     'gallery_url' => PHPWG_ROOT_PATH,
     'icons_url' => $icons_url,
     'page_section' => isset($page['section']) ? $page['section'] : null,
+    'php_url' => $php_url,
     'is_homepage' => isset($page['is_homepage']),
   ));
   $template->parse('menubar',true);
