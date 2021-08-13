@@ -523,7 +523,7 @@ li#languageSwitch {
         width: unset !important;
     }
 
-    .switchBox:not(#calendarViewSwitchBox), #languageSwitchBox {
+    .switchBox:not(#calendarViewSwitchBox, #collectionsDropdown), #languageSwitchBox {
         position: static !important;
     }
     .switchBoxTitle { display: none; }
@@ -1362,6 +1362,9 @@ fieldset.tagLetter {
 
 }
 
+/* user collections */
+#theCollectionPage #content p { margin: 1em 0 !important; }
+
 /* footer */
 #copyright {
 /*    position: absolute;
@@ -1380,6 +1383,7 @@ fieldset.tagLetter {
 /* icons */
 .pwg-icon { 
     display: inline-flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     text-indent: 0; 
