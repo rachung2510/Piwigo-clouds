@@ -92,8 +92,9 @@ function extended_desc_parse_lang_tag($params, $smarty) {
 
 }
 
+
+/* Lazy rendering of certain image formats: SVG, GIF and WEBP */
 // render image in single page
-// accepted formats: svg, gif, webp
 add_event_handler('render_element_content', 'render_img', 40, 2 );
 function render_img($content, $picture)
 {
@@ -125,7 +126,6 @@ function render_img($content, $picture)
 }
 
 // lazy rendering for "Edit photos" section of Community plugin
-// acceptable formats: svg, gif, webp
 add_event_handler('loc_end_section_init','edit_photos_prefilter'); // $page is fully defined
 function edit_photos_prefilter() {
     global $page, $template;
