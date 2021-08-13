@@ -1364,8 +1364,11 @@ fieldset.tagLetter {
 
 /* user collections */
 #theCollectionPage #content p { margin: 1em 0 !important; }
+#theCollectionPage #content #colProperties p { margin: 1em !important; }
 #menubar #mbUserCollection dd > a { background-color: unset; }
 #menubar #mbUserCollection dd > a:hover { color: #999; }
+
+/* .pwg-icon.user-collections-icon { background: none !important; } */
 
 /* footer */
 #copyright {
@@ -1393,7 +1396,7 @@ fieldset.tagLetter {
 }
 
 
-[class^="pwg-icon-"]:before, [class*=" pwg-icon-"]:before {
+[class^="pwg-icon"]:before, [class*=" pwg-icon"]:before {
     font-family: "FontAwesome";
     color: #333;
     font-size: 1.2em;
@@ -1467,6 +1470,7 @@ span:not(.pwg-state-disabled) .pwg-icon:hover:before {
 .pwg-icon-sun:hover::before { content: "\f185"; }
 .pwg-icon-moon:hover::before { content: "\f186"; }
 
+/* .pwg-icon.user-collections-icon:before { content: "\f0b1" } */
 
 @media screen and (max-width: 800px) {
 

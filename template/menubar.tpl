@@ -7,6 +7,7 @@
         jQuery.each(blocks, function(id, block) {
             $menu_block = $("#"+id);
             tab[id] = $menu_block.find("dt");
+            link[id] = $menu_block.find("dt a");
             pointer[id] = $menu_block.find("div[class^='pointer']");
             dropdown[id] = $menu_block.find("dd");
 
@@ -24,7 +25,7 @@
                         toggleLabels(1);
 
                     // expand menu downwards
-                    $("#menu").css('max-height', '999px');
+                    $("#menu").css('max-height', 'unset');
                     $("#menu").css('justify-content', 'flex-start');
 
                 } else { // hide dropdown
@@ -38,6 +39,13 @@
                     $("#menu").css('max-height', '500px');
                     $("#menu").css('justify-content', 'flex-end');
                 }
+
+                // wrap text only when text exceeds certain length
+                dropdown[id].find("a").each(function() {
+                    if ($(this).text().length > 50) { // roughly 50 chars
+                        $(this).css('white-space', 'normal');
+                    }
+                });
             });
         });
     }
@@ -79,10 +87,10 @@
         if (blocks !== null) {
             jQuery.each(blocks, function(id, block) {
                 if (id != except) {
-                    if ($("#dropdown-"+id).is(":visible")) {
-                        if (!($(".pointer-"+id).hasClass("is-page")))
-                            $(".pointer-"+id).hide();
-                        $("#dropdown-"+id).hide();
+                    if (dropdown[id].is(":visible")) {
+                        if (!(pointer[id].hasClass("is-page")))
+                            pointer[id].hide();
+                        dropdown[id].hide();
                         link[id].removeClass("selected");
                     }
                 }
@@ -215,13 +223,14 @@
 
 {* ======== mbTags ======== *}
             {elseif $id=="mbTags"}
-<dt><a {if !$IS_RELATED}href="{$blocks.mbMenu->data.tags.URL}" title="{$blocks.mbMenu->data.tags.TITLE}"{/if}>
+{*            <p>{if isset($page_section)}{$page_section}{else}null{/if}{$is_homepage}</p> *}
+<dt><a {if $php_url!='tags.php' && (!isset($page_section) || $is_homepage)}href="{$blocks.mbMenu->data.tags.URL}" title="{$blocks.mbMenu->data.tags.TITLE}"{/if}>
 {*    <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}svg/core/actions/tag?color=fff"> *}
     <img class="nc-icon-{$id} nc-icon-mb" src="{$icons_url}tag.svg">
     <span class="mb-label">{if $IS_RELATED}{'Related tags'|@translate}{else}{'Tags'|@translate}{/if}</span>
 </a></dt>
 <div class="pointer{if $page_section=='tags' || $php_url=='tags.php'} is-page{/if}"></div>
-{if $IS_RELATED}
+{if isset($page_section) && !$is_homepage}
 <dd>
     <div id="menuTagCloud">
         {foreach from=$block->data item=tag}{strip}
@@ -300,7 +309,7 @@
 <dd>
   {strip}
     {if $block->data.NB_COL == 0}
-      {'You have no collection'|translate}
+      <a href="{$block->data.U_LIST}">&nbsp;{'You have no collection'|translate}&nbsp;</a>
     {else}
       <a href="{$block->data.U_LIST}">{$pwg->l10n_dec('You have %d collection', 'You have %d collections', $block->data.NB_COL)}</a>
     {/if}
@@ -325,7 +334,7 @@
             {else}
 {if not empty($block->template)}
 {include file=$block->template }
-:{else}
+{else}
 {$block->raw_content}
 {/if}
 
