@@ -1,0 +1,26 @@
+1. User Collections
+- Change icons & symbols
+- Add filter for Community plugin: include as a prefilter, or as a filter of its own?
+
+2. User Tags
+- Fix css icon
+
+3. Additional filters/actions
+- Filter: most visited
+- Action: associate to album
+
+4. Admin config
+- Set configurable logo
+- Set configurable footer
+- Configure menubar fields for admins and users
+
+5. Tags
+- Let tags dropdown reflect all tags in the album, instead of only photos on that page
+
+6. Clean code
+- Remove commented code
+- Change all colours to vars like Nextcloud
+
+7. Misc
+- Added search tips icon next to menubar search bar?
+
