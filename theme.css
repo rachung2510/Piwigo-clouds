@@ -1380,10 +1380,11 @@ fieldset.tagLetter {
     .permitActionListButton select { width: calc(100vw - 32px) !important; }
 
     .filterActions { flex-direction: column; }
-    .addFilter-button { margin-bottom: 10px; }
+    #addFilter { margin: 0 0 5px !important; } /* remove margin-right */
+    .addFilter-button { width: calc(100% - 20px); } /* side padding 15px */
 
     #applyFilter, .addFilter-button {
-        padding: 10px !important;
+        padding: 15px 10px !important;
         height: auto !important;
     }
 
