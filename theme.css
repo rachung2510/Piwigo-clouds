@@ -292,7 +292,7 @@ div[class^="pointer"]::before {
     position: absolute;
     margin: 0;
     padding: 10px 0;
-    max-width: 300px;
+/*    max-width: 300px;*/
 /*    box-shadow: 2px 2px 5px gray; */
     background-color: #f9f9f9;
     color: black;
@@ -305,6 +305,7 @@ div[class^="pointer"]::before {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+#menubar dl:not(#mbCategories) dd { max-width: 300px; }
 
 dd#dropdown-mbSpecials {
     white-space: nowrap;
@@ -1670,6 +1671,7 @@ dl#qsearch-bar {
     max-width: unset;
     margin: 0 5px;
     border: 0;
+    overflow-x: auto;
 }
 
 }

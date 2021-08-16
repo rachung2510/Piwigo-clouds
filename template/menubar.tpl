@@ -14,6 +14,26 @@
             tab[id].click(function(e){
                 e.stopPropagation();
                 hideAllDropdown(except=id);
+
+                // wrap text only when text exceeds certain length
+        		// called first to set height of dropdown with wrapped text
+                if (dropdown[id].width() > 600) {
+                    dropdown[id].css('max-width', '500px');
+                    dropdown[id].find("a").each(function() {
+                        if ($(this).text().length > 100) { // roughly 50 chars for 300px
+                            $(this).css('white-space', 'normal');
+                        }
+                    });
+                }
+                if ($("#mbCategories").offset().left < dropdown[id].width()) {
+                    $curr = $(window).width() - $("#mbCategories").offset().left - $("#mbCategories").width(); // right:-1em
+                    $desired = ($(window).width() - dropdown[id].width())/2 >> 0; // truncate
+                    var new_width = $desired - $curr; // I want the negative value
+                    dropdown[id].css('right',`${new_width}px`);
+                } else {
+                    dropdown[id].css('right','-1em');
+                }
+
                 if (dropdown[id].is(":hidden")) { // show dropdown
                     dropdown[id].show();
                     pointer[id].show();
@@ -47,13 +67,6 @@
                     // reset page height
                     $("#content").css('height','auto');
                 }
-
-                // wrap text only when text exceeds certain length
-                dropdown[id].find("a").each(function() {
-                    if ($(this).text().length > 50) { // roughly 50 chars
-                        $(this).css('white-space', 'normal');
-                    }
-                });
             });
         });
     }
