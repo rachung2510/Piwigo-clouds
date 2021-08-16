@@ -384,6 +384,11 @@ dd#dropdown-mbSpecials {
 
 #mbCategories .pwg-icon-recent::before { color: #999 !important; }
 
+#mbCategories dd {
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
 dl#qsearch-bar { 
     width: auto; 
     justify-content: center;

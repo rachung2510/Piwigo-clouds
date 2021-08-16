@@ -21,12 +21,17 @@
                     selected = true;
 
                     // disabled show/hide labels for identification
-                    if (id != 'mbIdentification') 
+                    if (id != 'mbIdentification')
                         toggleLabels(1);
 
                     // expand menu downwards
                     $("#menu").css('max-height', 'unset');
                     $("#menu").css('justify-content', 'flex-start');
+
+                    // expand page height to accomodate dd height
+                    if (dropdown[id].height() > $("#content").height()) {
+                        $("#content").css('height', `${dropdown[id].height()}px`);
+                    }
 
                 } else { // hide dropdown
                     if (!(pointer[id].hasClass("is-page")) || $(window).width()<=800)
@@ -38,6 +43,9 @@
                     // shrink menu; reset menu to expand end first
                     $("#menu").css('max-height', '500px');
                     $("#menu").css('justify-content', 'flex-end');
+
+                    // reset page height
+                    $("#content").css('height','auto');
                 }
 
                 // wrap text only when text exceeds certain length
@@ -67,7 +75,7 @@
         toggleMenu();
     });
 
-
+    // window change behaviour
     $(window).resize(function() {
         $("#menu").removeClass("show"); // reset menu to default hidden
         if ($(window).width() > 800) {
@@ -78,6 +86,7 @@
             $(".is-page").removeClass("is-page");
         }
     });
+
 
     /**
      * Hide all dropdowns
@@ -104,6 +113,10 @@
             $("#menu").css('max-height', '500px');
             $("#menu").css('justify-content', 'flex-end'); // if dropdown showing on click
         }
+
+        // reset page height
+        $("#content").css('height','auto');
+
     }
 
     /**
@@ -394,6 +407,7 @@
     </dt>
     {/if}
     <div class="pointer-mbIdentification"></div>
+{if $U_LOGOUT}
     <dd id="dropdown-mbIdentification">
     {strip}
         {if isset($USERNAME)}
@@ -478,6 +492,7 @@
     {/strip}
 *}
     </dd>
+{/if} {* $u_logout *}
 </dl>
 
 {* ======== END ======== *}
