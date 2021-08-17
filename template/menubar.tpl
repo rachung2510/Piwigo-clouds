@@ -110,7 +110,7 @@
             jQuery.each(blocks, function(id, block) {
                 if (id != except) {
                     if (dropdown[id].is(":visible")) {
-                        if (!(pointer[id].hasClass("is-page")))
+                        if (!(pointer[id].hasClass("is-page")) || $(window).width()<=800)
                             pointer[id].hide();
                         dropdown[id].hide();
                         link[id].removeClass("selected");
