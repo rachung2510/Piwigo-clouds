@@ -24,3 +24,5 @@
 7. Misc
 - Added search tips icon next to menubar search bar?
 
+8. Bug fixes
+- Fix pointer staying visible for responsive menu
