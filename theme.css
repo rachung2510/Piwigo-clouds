@@ -1669,7 +1669,7 @@ dl#qsearch-bar {
 
 #menubar dd {
     width: calc(100% - 10px);
-    max-width: unset;
+    max-width: unset !important;
     margin: 0 5px;
     border: 0;
     overflow-x: auto;
